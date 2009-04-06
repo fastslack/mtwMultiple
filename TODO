@@ -1,0 +1,9 @@
++ Make XML file to make zip file
+
+@ RELEASE 0.0.1
+
+= Fix template creation
+= Fix Plugins creation
+= Fix Images creation
+= Fix Javascript email validation
++ Make sites editables
