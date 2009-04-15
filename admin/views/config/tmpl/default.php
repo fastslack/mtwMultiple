@@ -31,7 +31,16 @@ defined('_JEXEC') or die('Restricted access');
 		<td>
 			<input type="text" name="path" value="<?php echo $this->items['path'];?>" />
 		</td>
-        </tr>
+    </tr>
+	<tr>
+		<td colspan="2">
+			<?php
+				echo JText::_( "You need to create a directory into the root joomla installation with read/write privileges.<br/>" );
+				echo JText::_( "Every sites created with mtwMultiple will be installed in this directory.<br/>");
+				echo JText::_( "The name of each site is the site ID number. Ex: http://host/{PATH}/1<br/>" );
+			?>
+		</td>
+    </tr>
 <!--
     <tr>
         <td align="right">
