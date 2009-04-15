@@ -187,7 +187,7 @@ class mtwMultipleModelSites extends JModel
 
             $db =& JFactory::getDBO();
             $config =& JFactory::getConfig();
-            require_once( JPATH_SITE.DS.'installation/installer/helper.php');
+            require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
 
             $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
             $db->setQuery( $query );
@@ -204,7 +204,7 @@ class mtwMultipleModelSites extends JModel
 
             //print_r($newDB);
 
-            $dbscheme = JPATH_SITE .DS.'installation/sql'.DS.$dbtype.DS.'joomla.sql';
+            $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'joomla.sql';
             if (!JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
               return false;
             }

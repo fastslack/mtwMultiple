@@ -29,9 +29,12 @@
 		<menu>mtwMultiple</menu>
 		
 		<files folder="admin">
-                  <!--<filename>index.html</filename>-->
+            <!--<filename>index.html</filename>-->
 		    <filename>admin.mtwmultiple.php</filename>
 		    <filename>mtwmultiple_config.php.orig</filename>
+
+		    <filename>include/index.html</filename>
+		    <filename>include/helper.php</filename>
 
 		    <filename>images/index.html</filename>
 		    <filename>images/logo.png</filename>
@@ -39,8 +42,8 @@
 		    <filename>controller.php</filename>
 		    <filename>controllers/index.html</filename>
 		    <filename>controllers/cpanel.php</filename>
-                    <filename>controllers/config.php</filename>
-                    <filename>controllers/sites.php</filename>
+            <filename>controllers/config.php</filename>
+            <filename>controllers/sites.php</filename>
 		    <filename>controllers/help.php</filename>
 
 		    <filename>models/config.php</filename>
@@ -57,21 +60,22 @@
 		    <filename>views/config/index.html</filename>
 		    <filename>views/config/tmpl/index.html</filename>
 
-                    <filename>views/sites/view.html.php</filename>
-                    <filename>views/sites/tmpl/default.php</filename>
-                    <filename>views/sites/tmpl/form.php</filename>
-                    <filename>views/sites/index.html</filename>
-                    <filename>views/sites/tmpl/index.html</filename>
+            <filename>views/sites/view.html.php</filename>
+            <filename>views/sites/tmpl/default.php</filename>
+            <filename>views/sites/tmpl/form.php</filename>
+            <filename>views/sites/index.html</filename>
+            <filename>views/sites/tmpl/index.html</filename>
 
-                    <filename>views/help/view.html.php</filename>
-                    <filename>views/help/tmpl/default.php</filename>
-                    <filename>views/help/index.html</filename>
-                    <filename>views/help/tmpl/index.html</filename>
+            <filename>views/help/view.html.php</filename>
+            <filename>views/help/tmpl/default.php</filename>
+            <filename>views/help/index.html</filename>
+            <filename>views/help/tmpl/index.html</filename>
 
 		    <filename>tables/index.html</filename>
                     
-                    <filename>sql/index.html</filename>
-                    <filename>sql/install.sql</filename>
+            <filename>sql/index.html</filename>
+            <filename>sql/install.sql</filename>
+			<filename>sql/joomla.sql</filename>
 		</files>
                 <!--
 		<languages folder="admin">
