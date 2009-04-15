@@ -27,8 +27,15 @@ class mtwMultipleModelConfig extends JModel
 
 	function saveConfig( $post ) {
 
+		$path = $post['path'];
+		$slash = $path[0];
+		
+		if ($slash == "/" || $slash == "\\") {
+			$path = substr($path, 1, strlen($path));	
+		}
+
 		$configText = "<?php\n";
-		$configText .= "\$mtwCFG['path'] = \"" . $post['path'] . "\";\n";
+		$configText .= "\$mtwCFG['path'] = \"" . $path . "\";\n";
 		$configText .= "?>\n";
 
 		jimport('joomla.filesystem.file');

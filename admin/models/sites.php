@@ -55,7 +55,7 @@ class mtwMultipleModelSites extends JModel
             $db->setQuery( $query );
             $siteID = $db->loadResult();
 
-            $sitesPath = JPATH_SITE.$mtwCFG['path'];
+            $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
             $newSitePath = $sitesPath .DS. $siteID;
 
             if (!JFolder::exists( $sitesPath )) {              
@@ -133,7 +133,7 @@ class mtwMultipleModelSites extends JModel
             symlink ( JPATH_SITE .DS. 'images', $newSitePath .DS. 'images');
 
             symlink ( JPATH_SITE .DS. 'includes', $newSitePath .DS. 'includes');
-            symlink ( JPATH_SITE .DS. 'installation', $newSitePath .DS. 'installation');
+            //symlink ( JPATH_SITE .DS. 'installation', $newSitePath .DS. 'installation');
             symlink ( JPATH_SITE .DS. 'libraries', $newSitePath .DS. 'libraries');
 
             JFolder::create( $newSitePath.DS.'logs');
@@ -242,7 +242,7 @@ class mtwMultipleModelSites extends JModel
             $siteID = $db->loadResult();
 
             /* Create Joomla Installation */
-            $sitesPath = JPATH_SITE.$mtwCFG['path'];
+            $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
             $newSitePath = $sitesPath .DS. $siteID;
 
 
