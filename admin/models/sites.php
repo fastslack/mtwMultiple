@@ -51,12 +51,12 @@ class mtwMultipleModelSites extends JModel
             }
 
             /* Create Joomla Installation */
-            $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+            $query = "SELECT name FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
             $db->setQuery( $query );
-            $siteID = $db->loadResult();
+            $siteName = $db->loadResult();
 
             $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
-            $newSitePath = $sitesPath .DS. $siteID;
+            $newSitePath = $sitesPath .DS. $siteName;
 
             if (!JFolder::exists( $sitesPath )) {              
               JFolder::create( $sitesPath );
@@ -237,13 +237,13 @@ class mtwMultipleModelSites extends JModel
 	    }
 
             /* Create Joomla Installation */
-            $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+            $query = "SELECT name FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
             $db->setQuery( $query );
-            $siteID = $db->loadResult();
+            $siteName = $db->loadResult();
 
             /* Create Joomla Installation */
             $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
-            $newSitePath = $sitesPath .DS. $siteID;
+            $newSitePath = $sitesPath .DS. $siteName;
 
 
 
