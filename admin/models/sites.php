@@ -44,10 +44,10 @@ class mtwMultipleModelSites extends JModel
             $db =& JFactory::getDBO();
 
             $query = "INSERT INTO #__mtwmultiple_sites (name, title, email, created_by, created, password)"
-                    ." VALUES ('" . $post['name'] . "', '" . $post['title'] . "', '" . $post['email'] . "', " . $my->id . ", NOW(), '" . md5($post['password']) . "' )";
+             ." VALUES ('" . $post['name'] . "', '" . $post['title'] . "', '" . $post['email'] . "', " . $my->id . ", NOW(), '" . $post['password'] . "' )";
             $db->setQuery( $query );
             if (!$db->query()) {
-                return $db->getErrorMsg();
+            	return $db->getErrorMsg();
             }
 
             /* Create Joomla Installation */
@@ -191,16 +191,16 @@ class mtwMultipleModelSites extends JModel
             $config =& JFactory::getConfig();
             require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
 
-            $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+            $query = "SELECT id, email, password FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
             $db->setQuery( $query );
-            $siteID = $db->loadResult();            
+            $newsite = $db->loadAssoc();            
 
             $dbtype = $config->getValue('config.dbtype');
             $host = $config->getValue('config.host');
             $user = $config->getValue('config.user');
             $password = $config->getValue('config.password');
             $dbname = $config->getValue('config.db');
-            $dbprefix = 'j' . $siteID . '_';
+            $dbprefix = "j" . $newsite['id'] . "_";
 
             $newDB = & JInstallationHelper::getDBO($dbtype, $host, $user, $password, $dbname, $dbprefix);
 
@@ -208,19 +208,20 @@ class mtwMultipleModelSites extends JModel
 
             $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'joomla.sql';
             if (!JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
-              return false;
+            	return false;
             }
 
-
-            $vars['DBtype']	= $dbtype;
-            $vars['DBhostname']	= $host;
-	    $vars['DBuserName']	= $user;
-	    $vars['DBpassword']	= $password;
-	    $vars['DBname']	= $dbname;
-            $vars['DBPrefix']	= $dbprefix;
+			$vars['DBtype']	= $dbtype;
+			$vars['DBhostname']	= $host;
+			$vars['DBuserName']	= $user;
+			$vars['DBpassword']	= $password;
+			$vars['DBname']	= $dbname;
+			$vars['DBPrefix']	= $dbprefix;
+			$vars['adminPassword'] = $newsite['password'];
+			$vars['adminEmail'] = $newsite['email'];
 
             if (!JInstallationHelper::createAdminUser($vars) ) {
-              return false;
+            	return false;
             }    
 
             return true;        
