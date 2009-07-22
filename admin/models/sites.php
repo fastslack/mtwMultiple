@@ -202,10 +202,8 @@ class mtwMultipleModelSites extends JModel
 
             $newDB = & JInstallationHelper::getDBO($dbtype, $host, $user, $password, $dbname, $dbprefix);
 
-            //print_r($newsite);
-
             $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'joomla.sql';
-            if (!JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
+            if (JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
             	return false;
             }
 
