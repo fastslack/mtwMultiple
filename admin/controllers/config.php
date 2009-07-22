@@ -25,6 +25,24 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 		$this->registerTask( 'add'  , 	'edit' );
 	}
 
+	function upload() {
+
+		$model = $this->getModel('config');
+
+		$data = JRequest::get( 'post' );
+
+		if ($model->upload($data)) {
+			$msg = JText::_( 'Configuration Applied!' );
+		} else {
+			$msg = JText::_( 'Error Applying Configuration' );
+		}
+
+		JRequest::setVar( 'view', 'config' );
+
+		$link = 'index.php?option=com_mtwmultiple&controller=config';
+		$this->setRedirect($link, $msg);
+	}
+
 	function apply() {
 
 		$model = $this->getModel('config');

@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die('Restricted access'); 
 ?>
-
+  
 <form action="index.php" method="post" name="adminForm">
 <div id="editcell">
 
@@ -25,7 +25,7 @@ defined('_JEXEC') or die('Restricted access');
 		</td>
 	</tr>
 	<tr>
-		<td align="right">
+		<td align="right" class="row1">
 			<?php echo JText::_( "Sites Path" ); ?>
 		</td>
 		<td>
@@ -33,68 +33,54 @@ defined('_JEXEC') or die('Restricted access');
 		</td>
     </tr>
 	<tr>
-		<td colspan="2">
+		<td colspan="2" class="row1">
 			<?php
-				echo JText::_( "You need to create a directory into the root joomla installation with read/write privileges.<br/>" );
-				echo JText::_( "Every sites created with mtwMultiple will be installed in this directory.<br/>");
+				echo JText::_( "You need to create a directory into the root joomla installation with read/write privileges. " );
+				echo JText::_( "Every sites created with mtwMultiple will be installed in this directory. ");
 				echo JText::_( "The name of each site is the site ID number. Ex: http://host/{PATH}/1<br/>" );
 			?>
 		</td>
     </tr>
-<!--
-    <tr>
-        <td align="right">
-            <?php echo JText::_( "Database Name" ); ?>
-        </td>
-        <td>
-			<input type="text" name="dbname" value="<?php echo $this->items['dbname'];?>" />
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <?php echo JText::_( "UserName" ); ?>
-        </td>
-        <td>
-            <input type="text" name="username" value="<?php echo $this->items['username'];?>" />
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <?php echo JText::_( "Password" ); ?>
-        </td>
-        <td>
-			<input type="password" name="password" value="<?php echo $this->items['password'];?>" />
-        </td>
-    </tr>
-    <tr>
-        <td align="right">
-            <?php echo JText::_( "Prefix" ); ?>
-        </td>
-        <td>
-            <input type="text" name="prefix" value="<?php echo $this->items['prefix'];?>" />
-        </td>
-	</tr>
--->
+	<input type="hidden" name="option" value="com_mtwmultiple" />
+	<input type="hidden" name="task" value="" />
+	<input type="hidden" name="boxchecked" value="0" />
+	<input type="hidden" name="controller" value="config" />
+	</form>
 
+	<tr>
+		<td colspan="2">
+			<h3><?php echo JText::_( "Upload Component" );echo JRequest::getVar('task'); ?></h3>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="row1">
+            <form action="index.php" id="uploadForm" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend><?php echo JText::_( 'Upload File' ); ?> [ <?php echo JText::_( 'Max' ); ?>&nbsp; 10M ]</legend>
+                    <fieldset class="actions">
+                        <input type="file" id="file-upload" name="Filedata" />
+                        <input type="submit" id="file-upload-submit" value="<?php echo JText::_('Start Upload'); ?>"/>
+                        <span id="upload-clear"></span>
+                    </fieldset>
+                    <ul class="upload-queue" id="upload-queue">
+                        <li style="display: none" />
+                    </ul>
+                </fieldset>
+                <input type="hidden" name="return-url" value="<?php echo base64_encode('index.php?option=com_media'); ?>" />
+			<input type="hidden" name="option" value="com_mtwmultiple" />
+			<input type="hidden" name="task" value="upload" />
+			<input type="hidden" name="boxchecked" value="0" />
+			<input type="hidden" name="controller" value="config" />
+			<input type="hidden" name="return-url" value="<?php echo base64_encode('index.php?option=com_mtwmultiple&amp;controller=config'); ?>" />
+            </form>
+		</td>
+    </tr>
 	</table>
 
 	</td>
 </tr>
 </table>
-
-
-
 </div>
 
-<input type="hidden" name="option" value="com_mtwmultiple" />
-<input type="hidden" name="task" value="" />
-<input type="hidden" name="boxchecked" value="0" />
-<input type="hidden" name="controller" value="config" />
-<?
-	if ($this->items['ext_cb'] == 1) {
-		echo "<input type=\"hidden\" name=\"groups\" value=\"1\" />";
-		echo "<input type=\"hidden\" name=\"users\" value=\"1\" />";
-	}						
-?>
 
 </form>
