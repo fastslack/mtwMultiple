@@ -51,14 +51,12 @@ class mtwMultipleModelSites extends JModel
             }
 
             /* Create Joomla Installation */
-            $query = "SELECT name FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+            $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
             $db->setQuery( $query );
-            $siteName = $db->loadResult();
+            $siteID = $db->loadResult();
 
             $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
-            $newSitePath = $sitesPath .DS. $siteName;
-	
-			echo $newSitePath;
+            $newSitePath = $sitesPath .DS. $siteID;
 
             if (!JFolder::exists( $sitesPath )) {              
               JFolder::create( $sitesPath );
@@ -204,7 +202,7 @@ class mtwMultipleModelSites extends JModel
 
             $newDB = & JInstallationHelper::getDBO($dbtype, $host, $user, $password, $dbname, $dbprefix);
 
-            //print_r($newDB);
+            //print_r($newsite);
 
             $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'joomla.sql';
             if (!JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
@@ -244,13 +242,9 @@ class mtwMultipleModelSites extends JModel
             $db->setQuery( $query );
             $siteID = $db->loadResult();
 
-            $query = "SELECT name FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
-            $db->setQuery( $query );
-            $siteName = $db->loadResult();
-
             /* Create Joomla Installation */
             $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
-            $newSitePath = $sitesPath .DS. $siteName;
+            $newSitePath = $sitesPath .DS. $siteID;
 
 			$newConfig = new JRegistry('config');
 			$config_array = array();
