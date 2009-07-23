@@ -42,13 +42,20 @@ class mtwMultipleModelSites extends JModel
             /* Insert into Database */
             $my =& JFactory::getUser();      
             $db =& JFactory::getDBO();
+            
+            jimport('joomla.user.helper');
+            $adminPassword	= $post['password'];
 
-            $query = "INSERT INTO #__mtwmultiple_sites (name, title, email, created_by, created, password)"
-             ." VALUES ('" . $post['name'] . "', '" . $post['title'] . "', '" . $post['email'] . "', " . $my->id . ", NOW(), '" . $post['password'] . "' )";
-            $db->setQuery( $query );
-            if (!$db->query()) {
-            	return $db->getErrorMsg();
-            }
+			// Create random salt/password for the admin user
+			$salt = JUserHelper::genRandomPassword(32);
+			$crypt = JUserHelper::getCryptedPassword($adminPassword, $salt);
+			$cryptpass = $crypt.':'.$salt;
+			$query = "INSERT INTO #__mtwmultiple_sites (name, title, email, created_by, created, password)"
+			." VALUES ('" . $post['name'] . "', '" . $post['title'] . "', '" . $post['email'] . "', " . $my->id . ", NOW(), " .$db->Quote($cryptpass)." )";
+			$db->setQuery( $query );
+			if (!$db->query()) {
+				return $db->getErrorMsg();
+			}
 
             /* Create Joomla Installation */
             $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
