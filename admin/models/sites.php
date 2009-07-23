@@ -320,51 +320,86 @@ class mtwMultipleModelSites extends JModel
 			//$config_array['lang']				= JRequest::getVar('lang', 'none', 'english', 'cmd');
 			//$config_array['language']			= JRequest::getVar('language', 'en-GB', 'post', 'cmd');
 
-		$newConfig->loadArray($config_array);
+			$newConfig->loadArray($config_array);
 
-		//override any possible database password change
-		$newConfig->setValue('config.password', $mainframe->getCfg('password'));
+			//override any possible database password change
+			$newConfig->setValue('config.password', $mainframe->getCfg('password'));
 
-		// handling of special characters
-		$sitename			= htmlspecialchars( JRequest::getVar( 'sitename', $post['title'], 'post', 'string' ), ENT_COMPAT, 'UTF-8' );
-		$newConfig->setValue('config.sitename', $sitename);
+			// handling of special characters
+			$sitename			= htmlspecialchars( JRequest::getVar( 'sitename', $post['title'], 'post', 'string' ), ENT_COMPAT, 'UTF-8' );
+			$newConfig->setValue('config.sitename', $sitename);
 
-		$MetaDesc			= htmlspecialchars( JRequest::getVar( 'MetaDesc', '', 'post', 'string' ),  ENT_COMPAT, 'UTF-8' );
-		$newConfig->setValue('config.MetaDesc', $MetaDesc);
+			$MetaDesc			= htmlspecialchars( JRequest::getVar( 'MetaDesc', '', 'post', 'string' ),  ENT_COMPAT, 'UTF-8' );
+			$newConfig->setValue('config.MetaDesc', $MetaDesc);
 
-		$MetaKeys			= htmlspecialchars( JRequest::getVar( 'MetaKeys', '', 'post', 'string' ),  ENT_COMPAT, 'UTF-8' );
-		$newConfig->setValue('config.MetaKeys', $MetaKeys);
+			$MetaKeys			= htmlspecialchars( JRequest::getVar( 'MetaKeys', '', 'post', 'string' ),  ENT_COMPAT, 'UTF-8' );
+			$newConfig->setValue('config.MetaKeys', $MetaKeys);
 
-		// handling of quotes (double and single) and amp characters
-		// htmlspecialchars not used to preserve ability to insert other html characters
-		$offline_message	= JRequest::getVar( 'offline_message', '', 'post', 'string' );
-		$offline_message	= JFilterOutput::ampReplace( $offline_message );
-		$offline_message	= str_replace( '"', '&quot;', $offline_message );
-		$offline_message	= str_replace( "'", '&#039;', $offline_message );
-		$newConfig->setValue('config.offline_message', $offline_message);
+			// handling of quotes (double and single) and amp characters
+			// htmlspecialchars not used to preserve ability to insert other html characters
+			$offline_message	= JRequest::getVar( 'offline_message', '', 'post', 'string' );
+			$offline_message	= JFilterOutput::ampReplace( $offline_message );
+			$offline_message	= str_replace( '"', '&quot;', $offline_message );
+			$offline_message	= str_replace( "'", '&#039;', $offline_message );
+			$newConfig->setValue('config.offline_message', $offline_message);
 
-		//purge the database session table (only if we are changing to a db session store)
-		if($mainframe->getCfg('session_handler') != 'database' && $newConfig->getValue('session_handler') == 'database')
-		{
-			$table =& JTable::getInstance('session');
-			$table->purge(-1);
+			//purge the database session table (only if we are changing to a db session store)
+			if($mainframe->getCfg('session_handler') != 'database' && $newConfig->getValue('session_handler') == 'database')
+			{
+				$table =& JTable::getInstance('session');
+				$table->purge(-1);
+			}
+
+			// Get the path of the configuration file
+			$fname = $newSitePath.DS.'configuration.php';
+
+			// Get the config registry in PHP class format and write it to configuation.php
+			jimport('joomla.filesystem.file');
+			if (JFile::write($fname, $newConfig->toString('PHP', 'config', array('class' => 'JConfig')))) {
+				$msg = JText::_('The Configuration Details have been updated');
+			} else {
+				$msg = JText::_('ERRORCONFIGFILE');
+			}
+
+ 	   return true;
+    }
+
+	function removeSiteDB($siteID){
+		$db =& JFactory::getDBO();
+		$config =& JFactory::getConfig();
+		$dbname = $config->getValue('config.db');
+		require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
+
+		$dbprefix = 'j' . $siteID . '_';
+		$query = "SHOW TABLES LIKE '$dbprefix%'";
+		$db->setQuery($query);
+		if ($tables = $db->loadResultArray()){
+			foreach ($tables as $table) {
+				$query = "DROP TABLE IF EXISTS `$table`";
+				$db->setQuery($query);
+				$db->query();
+				if ($db->getErrorNum())
+				{
+					$msg = JText::_($db->getErrorMsg());
+					JError::raiseWarning( 500, $db->getError() );
+				}
+			}
 		}
+	}
 
-		// Get the path of the configuration file
-		$fname = $newSitePath.DS.'configuration.php';
-
-		// Get the config registry in PHP class format and write it to configuation.php
+	function removeSiteFiles($siteID){
 		jimport('joomla.filesystem.file');
-		if (JFile::write($fname, $newConfig->toString('PHP', 'config', array('class' => 'JConfig')))) {
-			$msg = JText::_('The Configuration Details have been updated');
-		} else {
-			$msg = JText::_('ERRORCONFIGFILE');
+
+		$configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+		if (JFile::exists( $configFile )) {
+			include( $configFile );
 		}
 
-            return true;
-        }
-
-
+		$sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
+		$newSitePath = $sitesPath .DS. $siteID;
+		JFolder::delete($newSitePath);
+		return true;
+	}
 
 }
 ?>

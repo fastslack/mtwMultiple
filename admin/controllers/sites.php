@@ -114,13 +114,15 @@ class mtwMultipleControllerSites extends mtwMultipleController
         $db     =& JFactory::getDBO();
         $hid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
         $n      = count( $hid );
-        JArrayHelper::toInteger( $hid );
 
-        if ($n)
-        {
-            $query = 'DELETE FROM #__mtwmultiple_sites'
-            . ' WHERE id = ' . implode( ' OR id = ', $hid )
-			;
+        $model = $this->getModel('sites');
+        for($count = 0; $count < $n; $count++) {
+
+        	$element = $hid[$count];
+			$model->removeSiteDB($hid[$count]);
+			$model->removeSiteFiles($hid[count]);
+        	$query = 'DELETE FROM #__mtwmultiple_sites'
+            . ' WHERE id = ' . implode( ' OR id = ', $hid );
 
             $db->setQuery( $query );
             if (!$db->query()) {
