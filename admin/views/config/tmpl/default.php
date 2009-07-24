@@ -49,7 +49,7 @@ defined('_JEXEC') or die('Restricted access');
 
 	<tr>
 		<td colspan="2">
-			<h3><?php echo JText::_( "Upload Component" );echo JRequest::getVar('task'); ?></h3>
+			<h3><?php echo JText::_( "Upload Extension" );echo JRequest::getVar('task'); ?></h3>
 		</td>
 	</tr>
 	<tr>
@@ -66,7 +66,6 @@ defined('_JEXEC') or die('Restricted access');
                         <li style="display: none" />
                     </ul>
                 </fieldset>
-                <input type="hidden" name="return-url" value="<?php echo base64_encode('index.php?option=com_media'); ?>" />
 			<input type="hidden" name="option" value="com_mtwmultiple" />
 			<input type="hidden" name="task" value="upload" />
 			<input type="hidden" name="boxchecked" value="0" />
@@ -76,7 +75,66 @@ defined('_JEXEC') or die('Restricted access');
 		</td>
     </tr>
 	</table>
+	<table class="adminlist" cellspacing="1">
+		<thead>
+			<tr>
+				<th class="title" width="10px"><?php echo JText::_( 'Num' ); ?></th>
+				<th width="20"><input type="checkbox" name="toggle" value=""  onclick="checkAll(<?php echo count( $rows ); ?>);" /></th>
+				<th class="title" nowrap="nowrap"><?php echo JText::_( 'Currently Installed' ); ?></th>
+				<th class="title" width="5%" align="center"><?php echo JText::_( 'Enabled' ); ?></th>
+				<th class="title" width="10%" align="center"><?php echo JText::_( 'Version' ); ?></th>
+				<th class="title" width="15%"><?php echo JText::_( 'Date' ); ?></th>
+				<th class="title" width="25%"><?php echo JText::_( 'Author' ); ?></th>
+				<th class="title" width="5%"><?php echo JText::_( 'Type' ); ?></th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+			<td colspan="8"><?php //echo $this->pagination->getListFooter(); ?></td>
+			</tr>
+		</tfoot>
+			<tbody>
+<?php
+                        $rows = $this->rows;
 
+			$k = 0;
+			for ($i=0, $n=count( $rows ); $i < $n; $i++) {
+				$row = &$rows[$i];
+
+				$checked		= JHTML::_('grid.checkedout',   $row, $i );
+			?>
+				<tr class="<?php echo "row$k"; ?>">
+					<td align="center">
+						<?php echo $row->id; ?>
+					</td>
+					<td align="center">
+						<?php echo $checked; ?>
+					</td>
+					<td>
+						<?php echo $row->name;?>
+					</td>
+					<td align="center">
+						<?php echo $row->enable;?>
+					</td>
+					<td align="center">
+						<?php echo $row->version;?>
+					</td>
+					<td class="order">
+						<?php echo $row->creationDate; ?>
+					</td>
+					<td align="center">
+						<?php echo $row->author;?>
+					</td>
+					<td class="order">
+						<?php echo $row->type; ?>
+					</td>
+				</tr>
+				<?php
+				$k = 1 - $k;
+			}
+			?>
+			</tbody>
+	</table>
 	</td>
 </tr>
 </table>

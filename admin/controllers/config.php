@@ -32,9 +32,9 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 		$data = JRequest::get( 'post' );
 
 		if ($model->upload($data)) {
-			$msg = JText::_( 'Configuration Applied!' );
+			$msg = JText::_( 'Extension Added!' );
 		} else {
-			$msg = JText::_( 'Error Applying Configuration' );
+			$msg = JText::_( 'Extension Error' );
 		}
 
 		JRequest::setVar( 'view', 'config' );

@@ -127,16 +127,13 @@ defined('_JEXEC') or die('Restricted access');
 		<table class="adminlist">
 		<tr>
 			<td colspan="2">
-				<h3><?php echo JText::_( "Add Components to Site" ); ?></h3> </td>
+				<h3><?php echo JText::_( "Add extensions to new site" ); ?></h3> </td>
 		</tr>
 		<tr>
-			<td align="right">
+			<td align="right" width="50%">
 			
 		    <select multiple id="select1">  
-				<option value="1">Option 1</option>  
-				<option value="2">Option 2</option>  
-				<option value="3">Option 3</option>  
-				<option value="4">Option 4</option>  
+				<? echo $this->options; ?>
 		    </select>  
 		    <a href="#" id="add" class="sel">add &gt;&gt;</a>  
 		    </td>  

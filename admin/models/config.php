@@ -63,9 +63,7 @@ class mtwMultipleModelConfig extends JModel
 	{
 		global $mainframe;
 
-		echo "DSDSD";
-
-		require_once('components/com_media'.DS.'helpers'.DS.'media.php' );		
+		require_once('components/com_mtwmultiple'.DS.'helpers'.DS.'upload.php' );		
 
 		// Check for request forgeries
 		//JRequest::checkToken( 'request' ) or jexit( 'Invalid Token' );
@@ -87,7 +85,7 @@ class mtwMultipleModelConfig extends JModel
 		if (isset($file['name'])) {
 			$filepath = JPath::clean('components/com_mtwmultiple/extensions'.DS.strtolower($file['name']));
 
-			if (!MediaHelper::canUpload( $file, $err )) {
+			if (!UploadHelper::canUpload( $file, $err )) {
 				if ($format == 'json') {
 					jimport('joomla.error.log');
 					$log = &JLog::getInstance('upload.error.php');
@@ -143,18 +141,69 @@ class mtwMultipleModelConfig extends JModel
 					$log->addEntry(array('comment' => $folder));
 					jexit('Upload complete');
 				} else {
-					$mainframe->enqueueMessage(JText::_('Upload complete'));
+					//$mainframe->enqueueMessage(JText::_('Upload complete'));
 					// REDIRECT
-					if ($return) {
-						$mainframe->redirect(base64_decode($return));
-					}
-					return;
+					//if ($return) {
+						//$mainframe->redirect(base64_decode($return));
+					//}
+					$this->install($filepath);
+					return true;
 				}
 			}
 		} else {
 			$mainframe->redirect('index.php', 'Invalid Request', 'error');
 		}
 	}
+	
+	/**
+	 * Upload a file
+	 *
+	 * @since 1.5
+	 */
+	function install($filepath)
+	{
+		global $mainframe;
+		
+		//echo $filepath;
+		jimport('joomla.installer.helper');
+		
+		$package = JInstallerHelper::unpack($filepath);
+		//print_r($package);
+
+		$files = JFolder::files(JPATH_ADMINISTRATOR.DS.$package['dir'], '\.xml$', 1, true);
+
+		//print_r($files);
+
+
+		if (count($files) > 0) {
+			foreach ($files as $file) {
+
+				$xml = simplexml_load_file($file);
+
+				if ($xml->copyright) {
+					//print_r($xml);
+
+					//echo $xml["type"];
+					$db =& JFactory::getDBO();
+
+					// Insert extension
+					$query = "INSERT INTO #__mtwmultiple_extensions "
+					. " (type, name, author, creationDate, copyright, license, authorEmail, authorUrl, version, description)"
+					. " VALUES ('". $xml["type"] ."','". $xml->name ."','". $xml->author ."',"
+					. "'". $xml->creationDate ."','". $xml->copyright ."',"
+					. "'". $xml->license ."','". $xml->authorEmail ."','". $xml->authorUrl ."','". $xml->version ."',"
+					. "'". $xml->description ."')";
+					$db->setQuery( $query );
+					$result = $db->query();				
+
+					//echo $xml->getName() . "<br />";
+				}
+
+			}
+		}
+
+
+	}	
 
 }
 ?>
