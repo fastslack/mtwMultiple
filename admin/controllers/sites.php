@@ -126,7 +126,7 @@ class mtwMultipleControllerSites extends mtwMultipleController
 
         	$element = $hid[$count];
 			$model->removeSiteDB($hid[$count]);
-			$model->removeSiteFiles($hid[count]);
+			$model->removeSiteFiles($hid[$count]);
         	$query = 'DELETE FROM #__mtwmultiple_sites'
             . ' WHERE id = ' . implode( ' OR id = ', $hid );
 
