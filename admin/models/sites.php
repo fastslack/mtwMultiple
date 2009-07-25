@@ -189,23 +189,23 @@ class mtwMultipleModelSites extends JModel
 
 	}
 
-	function addSiteDB( ) {
+	function addSiteDB( $post ) {
             global $mainframe;
 
             $db =& JFactory::getDBO();
             $config =& JFactory::getConfig();
             require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
 
-            $query = "SELECT id, email, password FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+            $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
             $db->setQuery( $query );
-            $newsite = $db->loadAssoc();            
+            $siteID = $db->loadResult();            
 
             $dbtype = $config->getValue('config.dbtype');
             $host = $config->getValue('config.host');
             $user = $config->getValue('config.user');
             $password = $config->getValue('config.password');
             $dbname = $config->getValue('config.db');
-            $dbprefix = "j" . $newsite['id'] . "_";
+            $dbprefix = "j" . $siteID . "_";
 
             $newDB = & JInstallationHelper::getDBO($dbtype, $host, $user, $password, $dbname, $dbprefix);
 
@@ -220,8 +220,8 @@ class mtwMultipleModelSites extends JModel
 			$vars['DBpassword']	= $password;
 			$vars['DBname']	= $dbname;
 			$vars['DBPrefix']	= $dbprefix;
-			$vars['adminPassword'] = $newsite['password'];
-			$vars['adminEmail'] = $newsite['email'];
+			$vars['adminPassword'] = $post['password'];
+			$vars['adminEmail'] = $post['email'];
 
             if (!JInstallationHelper::createAdminUser($vars) ) {
             	return false;
