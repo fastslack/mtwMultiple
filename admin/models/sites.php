@@ -119,7 +119,9 @@ class mtwMultipleModelSites extends JModel
             symlink ( JPATH_ADMINISTRATOR .DS. 'language/index.html', $newSitePath .DS. 'administrator/language/index.html');
             symlink ( JPATH_ADMINISTRATOR .DS. 'language/en-GB', $newSitePath .DS. 'administrator/language/en-GB');
             symlink ( JPATH_ADMINISTRATOR .DS. 'modules', $newSitePath .DS. 'administrator/modules');
-            symlink ( JPATH_ADMINISTRATOR .DS. 'templates', $newSitePath .DS. 'administrator/templates');
+            // Admin Templates
+            JFolder::copy( JPATH_ADMINISTRATOR .DS. 'templates/', $newSitePath.DS.'administrator/templates/');
+
 
             /* Site Components Files */
             JFolder::create( $newSitePath.DS.'components');
@@ -143,8 +145,8 @@ class mtwMultipleModelSites extends JModel
             //symlink ( JPATH_SITE .DS. 'installation', $newSitePath .DS. 'installation');
             symlink ( JPATH_SITE .DS. 'libraries', $newSitePath .DS. 'libraries');
 
-            JFolder::create( $newSitePath.DS.'logs');
-            JFolder::create( $newSitePath.DS.'media');
+            JFolder::copy( JPATH_SITE .DS. 'logs/', $newSitePath.DS.'logs');
+            JFolder::copy( JPATH_SITE .DS. 'media/', $newSitePath.DS.'media');
             JFolder::create( $newSitePath.DS.'modules');
             symlink ( JPATH_SITE .DS. 'modules/mod_archive', $newSitePath .DS. 'modules/mod_archive');
             symlink ( JPATH_SITE .DS. 'modules/mod_banners', $newSitePath .DS. 'modules/mod_banners');
