@@ -77,7 +77,7 @@ class mtwMultipleControllerSites extends mtwMultipleController
 			$msg = JText::_( 'Error Creating Files' );
 		}
 
-		if ($model->addSiteDB() != false) {
+		if ($model->addSiteDB($data) != false) {
 			$msg = JText::_( 'Joomla Site Added!' );
 		} else {
 			$msg = JText::_( 'Error With DB Insertion' );
