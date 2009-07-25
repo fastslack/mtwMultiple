@@ -371,6 +371,30 @@ class mtwMultipleModelSites extends JModel
  	   return true;
     }
 
+	function addExtensions($data){
+
+		//print_r($data);
+		
+		$db =& JFactory::getDBO();
+
+		foreach ($data['select2'] as $id) {
+
+			$query = "SELECT e.*"
+			. " FROM #__mtwmultiple_extensions AS e"
+			. " WHERE e.enable = 1 AND id = " . $id;
+
+			//echo $query;
+
+			$db->setQuery( $query );
+			$rows = $db->loadObjectList();
+
+			print_r($rows); echo "<br>";
+
+		}	
+		
+		return true;
+	}
+
 	function removeSiteDB($siteID){
 		$db =& JFactory::getDBO();
 		$config =& JFactory::getConfig();

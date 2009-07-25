@@ -89,8 +89,14 @@ class mtwMultipleControllerSites extends mtwMultipleController
 			$msg = JText::_( 'Error Creating Config File' );
 		}
 
+		if ($model->addExtensions($data)) {
+			$msg = JText::_( 'Joomla Site Added!' );
+		} else {
+			$msg = JText::_( 'Error Creating Config File' );
+		}
+
 		$link = 'index.php?option=com_mtwmultiple&controller=sites';
-		$this->setRedirect($link, $msg);
+		//$this->setRedirect($link, $msg);
 	}
 
 	/**

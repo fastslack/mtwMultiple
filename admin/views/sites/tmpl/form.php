@@ -132,13 +132,13 @@ defined('_JEXEC') or die('Restricted access');
 		<tr>
 			<td align="right" width="50%">
 			
-		    <select multiple id="select1">  
+		    <select multiple id="select1" name="select1">  
 				<? echo $this->options; ?>
 		    </select>  
 		    <a href="#" id="add" class="sel">add &gt;&gt;</a>  
 		    </td>  
 		  	<td>  
-		  	<select multiple id="select2"></select>  
+		  	<select multiple id="select2" name="select2[]"></select>  
 		   	<a href="#" id="remove" class="sel">&lt;&lt; remove</a>  
 		  
 		  
