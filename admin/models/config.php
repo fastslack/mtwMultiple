@@ -172,7 +172,7 @@ class mtwMultipleModelConfig extends JModel
 
 		$files = JFolder::files(JPATH_ADMINISTRATOR.DS.$package['dir'], '\.xml$', 1, true);
 
-		//print_r($files);
+		print_r($files);
 
 
 		if (count($files) > 0) {
@@ -180,7 +180,9 @@ class mtwMultipleModelConfig extends JModel
 
 				$xml = simplexml_load_file($file);
 
-				if ($xml->copyright) {
+				//echo $xml->getName() . "<br>";
+
+				if ($xml->getName() == "mosinstall" || $xml->getName() == "install") {
 					//print_r($xml);
 
 					//echo $xml["type"];
@@ -188,19 +190,24 @@ class mtwMultipleModelConfig extends JModel
 
 					// Insert extension
 					$query = "INSERT INTO #__mtwmultiple_extensions "
-					. " (type, name, author, creationDate, copyright, license, authorEmail, authorUrl, version, description)"
-					. " VALUES ('". $xml["type"] ."','". $xml->name ."','". $xml->author ."',"
+					. " (filename, type, name, author, creationDate, copyright, license, authorEmail, authorUrl, version)"
+					. " VALUES ('". basename($filepath) ."','". $xml["type"] ."','". $xml->name ."','". $xml->author ."',"
 					. "'". $xml->creationDate ."','". $xml->copyright ."',"
-					. "'". $xml->license ."','". $xml->authorEmail ."','". $xml->authorUrl ."','". $xml->version ."',"
-					. "'". $xml->description ."')";
+					. "'". $xml->license ."','". $xml->authorEmail ."','". $xml->authorUrl ."','". $xml->version ."')";
 					$db->setQuery( $query );
 					$result = $db->query();				
 
+					//echo $query . "<br>";
+
 					//echo $xml->getName() . "<br />";
+					break;
 				}
 
 			}
 		}
+
+		jimport('joomla.filesystem.file');
+		JFolder::delete(JPATH_ADMINISTRATOR.DS.$package['extractdir']);
 
 
 	}	
