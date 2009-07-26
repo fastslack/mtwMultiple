@@ -169,9 +169,13 @@ class mtwMultipleModelSites extends JModel
             symlink ( JPATH_SITE .DS. 'modules/mod_whosonline', $newSitePath .DS. 'modules/mod_whosonline');
             symlink ( JPATH_SITE .DS. 'modules/mod_wrapper', $newSitePath .DS. 'modules/mod_wrapper');
 
-            /* FIX!! Plugins */
-            //JFolder::create( $newSitePath.DS.'plugins');
-            symlink ( JPATH_SITE .DS. 'plugins', $newSitePath .DS. 'plugins'); 
+            /* Plugins */
+            JFolder::copy( JPATH_SITE .DS. 'plugins/', $newSitePath.DS.'plugins');
+            // Install mtwFirstInstall plugin
+            $pluginPHP = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'plugin'.DS.'mtwFirstInstall.php';
+            $pluginXML = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'plugin'.DS.'mtwFirstInstall.xml';
+            JFile::copy( $pluginPHP, $newSitePath.DS.'plugins'.DS.'system'.DS.'mtwFirstInstall.php');
+            JFile::copy( $pluginXML, $newSitePath.DS.'plugins'.DS.'system'.DS.'mtwFirstInstall.xml');
 
             /* FIX!! Templates */
             JFolder::create( $newSitePath.DS.'templates');
@@ -211,7 +215,14 @@ class mtwMultipleModelSites extends JModel
 
             $newDB = & JInstallationHelper::getDBO($dbtype, $host, $user, $password, $dbname, $dbprefix);
 
+			// Install original Joomla scheme
             $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'joomla.sql';
+            if (JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
+            	return false;
+            }
+
+			// First Install Plugin table
+            $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'firstinstall.sql';
             if (JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
             	return false;
             }
@@ -376,9 +387,32 @@ class mtwMultipleModelSites extends JModel
 	function addExtensions($data){
 
 		//print_r($data);
-		
-		$db =& JFactory::getDBO();
 
+        $db =& JFactory::getDBO();
+        $config =& JFactory::getConfig();
+        require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
+
+        $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+        $db->setQuery( $query );
+        $siteID = $db->loadResult();            
+
+		$dbconfig = array();
+        $dbconfig['driver'] = $config->getValue('config.dbtype');
+        $dbconfig['host'] = $config->getValue('config.host');
+        $dbconfig['user'] = $config->getValue('config.user');
+        $dbconfig['password'] = $config->getValue('config.password');
+        $dbconfig['database']= $config->getValue('config.db');
+        $dbconfig['prefix'] = "j" . $siteID . "_";
+        
+        $newDB = JDatabase::getInstance( $dbconfig );
+		if ( $newDB->message ) {
+			//print_r($this->_externalDB);
+			$this->setError($newDB->message);
+			return false;
+		}
+		
+		//print_r($newDB);
+		
 		foreach ($data['select2'] as $id) {
 
 			$query = "SELECT e.*"
@@ -386,11 +420,24 @@ class mtwMultipleModelSites extends JModel
 			. " WHERE e.enable = 1 AND id = " . $id;
 
 			//echo $query;
-
 			$db->setQuery( $query );
-			$rows = $db->loadObjectList();
+			$rows = $db->loadAssoc();
 
-			print_r($rows); echo "<br>";
+			//print_r($rows); echo "<br>";
+			
+			// Insert extension
+			$query = "INSERT INTO #__mtwmultiple_firstinstall"
+			. " (`filename`, `type`)"
+			. " VALUES ('". $rows['filename'] ."','". $rows["type"] ."')";
+			//echo $query;
+			$newDB->setQuery( $query );
+			
+			if(!$newDB->query()) {
+				echo $newDB->getError();
+			}
+
+			print_r($newDB);
+			echo "<br><br>";
 
 		}	
 		
