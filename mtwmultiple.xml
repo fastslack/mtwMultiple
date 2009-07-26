@@ -47,9 +47,18 @@
             <filename>controllers/sites.php</filename>
 		    <filename>controllers/help.php</filename>
 
+		    <filename>extensions/index.html</filename>
+
+		    <filename>js/jquery.js</filename>
+		    <filename>js/index.html</filename>
+		    
 		    <filename>models/config.php</filename>
 		    <filename>models/sites.php</filename>
 		    <filename>models/index.html</filename>
+
+			<filename>plugin/index.html</filename>
+		    <filename>plugin/mtwFirstInstall.php</filename>
+		    <filename>plugin/mtwFirstInstall.xml</filename>
 
 		    <filename>views/cpanel/view.html.php</filename>
 		    <filename>views/cpanel/index.html</filename>
@@ -77,6 +86,7 @@
             <filename>sql/index.html</filename>
             <filename>sql/install.sql</filename>
 			<filename>sql/joomla.sql</filename>
+			<filename>sql/firstinstall.sql</filename>
 		</files>
                 <!--
 		<languages folder="admin">
