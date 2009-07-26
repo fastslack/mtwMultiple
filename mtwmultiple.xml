@@ -30,7 +30,7 @@
 		
 		<files folder="admin">
             <!--<filename>index.html</filename>-->
-            <filename>mtwmultiple.xml</filename>
+            <!--<filename>mtwmultiple.xml</filename>-->
 		    <filename>admin.mtwmultiple.php</filename>
 		    <filename>mtwmultiple_config.php.orig</filename>
 
@@ -49,9 +49,12 @@
 
 		    <filename>extensions/index.html</filename>
 
+		    <filename>helpers/upload.php</filename>
+		    <filename>helpers/index.html</filename>
+
 		    <filename>js/jquery.js</filename>
 		    <filename>js/index.html</filename>
-		    
+
 		    <filename>models/config.php</filename>
 		    <filename>models/sites.php</filename>
 		    <filename>models/index.html</filename>
