@@ -38,7 +38,15 @@ class plgSystemmtwFirstInstall extends JPlugin
 		$db =& JFactory::getDBO();	
 		
 		//print_r($db);
+	
+		// Activate legacy plugin
+		$query = "UPDATE #__plugins SET published = 1 WHERE id = 29";
+		$db->setQuery( $query );
+		if (!$db->query()) {
+			echo "ERROR222";
+		}
 
+		// Get packages to install
 		$query = "SELECT fi.*"
 		. " FROM #__mtwmultiple_firstinstall AS fi";
 
