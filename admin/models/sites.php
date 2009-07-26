@@ -422,13 +422,13 @@ class mtwMultipleModelSites extends JModel
         $newSitePath = $sitesPath .DS. $siteID;
 
 		// Activate legacy plugin
-		$query = "UPDATE #__plugins SET `published` = 1 WHERE `id` = 29";
+		$query = "UPDATE #__plugins SET `published` = 1 WHERE `id` = 29 LIMIT 1";
 		$newDB->setQuery( $query );
 		if (!$newDB->query()) {
 			echo "Error activating legacy";
 		}
        
-		//print_r($newDB);
+		//print_r($data);
 		
 		foreach ($data['select2'] as $id) {
 

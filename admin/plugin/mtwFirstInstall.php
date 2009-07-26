@@ -32,39 +32,38 @@ class plgSystemmtwFirstInstall extends JPlugin
 	 * Do something onAfterInitialise 
 	 */
 	function onAfterInitialise()	{
+		global $mainframe;
+		
+		$my =& JFactory::getUser();
+		
+		if ($my->id) {
 	
-		jimport( 'joomla.installer.installer' );
-		jimport('joomla.installer.helper');
-		$db =& JFactory::getDBO();	
-		//print_r($db);
+			jimport( 'joomla.installer.installer' );
+			jimport('joomla.installer.helper');
+			$db =& JFactory::getDBO();	
+			//print_r($db);
 	
-		// Get packages to install
-		$query = "SELECT fi.*"
-		. " FROM #__mtwmultiple_firstinstall AS fi";
+			// Get packages to install
+			$query = "SELECT fi.*"
+			. " FROM #__mtwmultiple_firstinstall AS fi ORDER BY id ASC";
 
-		//echo $query;
-		$db->setQuery( $query );
-		$rows = $db->loadObjectList();
-
-		foreach ($rows as $p) {
-
-			$filepath = JPATH_SITE.DS."tmp".DS.$p->filename;
-			//print_r($rows);
-			$package = JInstallerHelper::unpack($filepath);
-			//echo $package;
-			$installer =& JInstaller::getInstance();
-			$installer->install($package['dir']);
-			
-			$query = "DELETE FROM #__mtwmultiple_firstinstall WHERE id = " . $p->id;
+			//echo $query;
 			$db->setQuery( $query );
-			$db->query();
+			$rows = $db->loadObjectList();
+
+			foreach ($rows as $p) {
+				$filepath = JPATH_SITE.DS."tmp".DS.$p->filename;
+				//print_r($rows);echo "<br>";
+				$package = JInstallerHelper::unpack($filepath);
+				//echo $package;
+				$installer =& JInstaller::getInstance();
+				$installer->install($package['dir']);
 			
+				$query = "DELETE FROM #__mtwmultiple_firstinstall WHERE id = " . $p->id;
+				$db->setQuery( $query );
+				$db->query();
+			}
 		}
-
-
-
 	}
-
-
 
 }
