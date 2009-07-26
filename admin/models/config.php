@@ -172,7 +172,7 @@ class mtwMultipleModelConfig extends JModel
 
 		$files = JFolder::files(JPATH_ADMINISTRATOR.DS.$package['dir'], '\.xml$', 1, true);
 
-		print_r($files);
+		//print_r($files);
 
 
 		if (count($files) > 0) {
