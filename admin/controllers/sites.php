@@ -96,7 +96,7 @@ class mtwMultipleControllerSites extends mtwMultipleController
 		}
 
 		$link = 'index.php?option=com_mtwmultiple&controller=sites';
-		//$this->setRedirect($link, $msg);
+		$this->setRedirect($link, $msg);
 	}
 
 	/**

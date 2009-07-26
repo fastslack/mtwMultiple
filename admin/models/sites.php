@@ -395,6 +395,11 @@ class mtwMultipleModelSites extends JModel
 
         $db =& JFactory::getDBO();
 
+		// new site id
+        $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+        $db->setQuery( $query );
+        $siteID = $db->loadResult();     
+
 		// new site database instance
         $config =& JFactory::getConfig();
 		$dbconfig = array();
@@ -411,18 +416,13 @@ class mtwMultipleModelSites extends JModel
 			$this->setError($newDB->message);
 			return false;
 		}
-
-		// new site id
-        $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
-        $db->setQuery( $query );
-        $siteID = $db->loadResult();            
-
+     
 		// Setting new site path
         $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
         $newSitePath = $sitesPath .DS. $siteID;
 
 		// Activate legacy plugin
-		$query = "UPDATE #__plugins SET published = 1 WHERE id = 29";
+		$query = "UPDATE #__plugins SET `published` = 1 WHERE `id` = 29";
 		$newDB->setQuery( $query );
 		if (!$newDB->query()) {
 			echo "Error activating legacy";
@@ -455,10 +455,10 @@ class mtwMultipleModelSites extends JModel
 
             $filepath = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'extensions'.DS.$rows['filename'];
             JFile::copy( $filepath, $newSitePath.DS.'tmp'.DS.$rows['filename']);
-            echo $newSitePath.DS.'tmp'.DS.$rows['filename'] . "<br>" . $filepath;
+            //echo $newSitePath.DS.'tmp'.DS.$rows['filename'] . "<br>" . $filepath;
 
 			//print_r($newDB);
-			echo "<br><br>";
+			//echo "<br><br>";
 
 		}	
 		
