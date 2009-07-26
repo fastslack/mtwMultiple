@@ -8,7 +8,7 @@
 	<authorUrl>http://www.matware.com.ar</authorUrl>
 	<copyright>CopyLEFT</copyright>
 	<license>GNU/GPL</license>
-	<version>0.0.1</version>
+	<version>0.1.0</version>
 	<description>This component allows to make multiple Joomla installations</description>
 	<files folder="site">
 		<filename>index.html</filename>
@@ -30,6 +30,7 @@
 		
 		<files folder="admin">
             <!--<filename>index.html</filename>-->
+            <filename>mtwmultiple.xml</filename>
 		    <filename>admin.mtwmultiple.php</filename>
 		    <filename>mtwmultiple_config.php.orig</filename>
 
