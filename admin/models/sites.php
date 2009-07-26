@@ -388,14 +388,15 @@ class mtwMultipleModelSites extends JModel
 
 		//print_r($data);
 
+        $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+		if (JFile::exists( $configFile )) {
+		  include( $configFile );
+		}
+
         $db =& JFactory::getDBO();
+
+		// new site database instance
         $config =& JFactory::getConfig();
-        require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
-
-        $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
-        $db->setQuery( $query );
-        $siteID = $db->loadResult();            
-
 		$dbconfig = array();
         $dbconfig['driver'] = $config->getValue('config.dbtype');
         $dbconfig['host'] = $config->getValue('config.host');
@@ -403,14 +404,30 @@ class mtwMultipleModelSites extends JModel
         $dbconfig['password'] = $config->getValue('config.password');
         $dbconfig['database']= $config->getValue('config.db');
         $dbconfig['prefix'] = "j" . $siteID . "_";
-        
+
         $newDB = JDatabase::getInstance( $dbconfig );
 		if ( $newDB->message ) {
 			//print_r($this->_externalDB);
 			$this->setError($newDB->message);
 			return false;
 		}
-		
+
+		// new site id
+        $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+        $db->setQuery( $query );
+        $siteID = $db->loadResult();            
+
+		// Setting new site path
+        $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
+        $newSitePath = $sitesPath .DS. $siteID;
+
+		// Activate legacy plugin
+		$query = "UPDATE #__plugins SET published = 1 WHERE id = 29";
+		$newDB->setQuery( $query );
+		if (!$newDB->query()) {
+			echo "Error activating legacy";
+		}
+       
 		//print_r($newDB);
 		
 		foreach ($data['select2'] as $id) {
@@ -436,7 +453,11 @@ class mtwMultipleModelSites extends JModel
 				echo $newDB->getError();
 			}
 
-			print_r($newDB);
+            $filepath = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'extensions'.DS.$rows['filename'];
+            JFile::copy( $filepath, $newSitePath.DS.'tmp'.DS.$rows['filename']);
+            echo $newSitePath.DS.'tmp'.DS.$rows['filename'] . "<br>" . $filepath;
+
+			//print_r($newDB);
 			echo "<br><br>";
 
 		}	
