@@ -58,6 +58,7 @@ class mtwMultipleViewConfig extends JView
 		$rows = $db->loadObjectList();
         //print_r($db->getError());
 
+        $this->assignRef('config', $mtwCFG);        
         $this->assignRef('rows', $rows);
         $this->assignRef('lists', $lists);
         $this->assignRef('pageNav', $pageNav);

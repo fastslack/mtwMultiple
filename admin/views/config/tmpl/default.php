@@ -29,7 +29,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php echo JText::_( "Sites Path" ); ?>
 		</td>
 		<td>
-			<input type="text" name="path" value="<?php echo $this->items['path'];?>" />
+			<input type="text" name="path" value="<?php echo $this->config['path'];?>" />
 		</td>
     </tr>
 	<tr>
