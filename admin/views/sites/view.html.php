@@ -12,17 +12,22 @@
 defined('_JEXEC') or die();
 
 jimport( 'joomla.application.component.view' );
+jimport('joomla.filesystem.file');
 
 class mtwMultipleViewSites extends JView {
 
 	function display($tpl = null) {
-     	global $mainframe;
+   	global $mainframe;
 
-                
-        if($this->getLayout() == 'form') {
-                $this->_displayForm($tpl);
-                return;
-        }
+    if($this->getLayout() == 'form') {
+		  $this->_displayForm($tpl);
+		  return;
+    }
+
+		$configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+		if (JFile::exists( $configFile )) {
+			include( $configFile );
+		}
 
 		JToolBarHelper::title(  JText::_( 'mtwMultiple Sites' ), 'plugin.png' );
 		JToolBarHelper::back();
@@ -48,9 +53,9 @@ class mtwMultipleViewSites extends JView {
 			$where[] = 'LOWER(s.name) LIKE '.$db->Quote( '%'.$db->getEscaped( $search, true ).'%', false );
 		}
 
-        if ($filter_order == '') {
-          $filter_order = 's.id';
-        }
+    if ($filter_order == '') {
+      $filter_order = 's.id';
+    }
 
 		$where		= count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '';
 		$orderby	= ' ORDER BY '. $filter_order .' '. $filter_order_Dir;
@@ -85,9 +90,10 @@ class mtwMultipleViewSites extends JView {
 		// search filter
 		$lists['search']= $search;
 
-        $this->assignRef('rows', $rows);
-        $this->assignRef('lists', $lists);
-        $this->assignRef('pageNav', $pageNav);
+		$this->assignRef('rows', $rows);
+		$this->assignRef('lists', $lists);
+		$this->assignRef('pageNav', $pageNav);
+		$this->assignRef('config', $mtwCFG);
 
 		parent::display($tpl);
 	}

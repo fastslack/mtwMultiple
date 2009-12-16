@@ -22,7 +22,7 @@ class mtwMultipleViewConfig extends JView
 		global $mainframe;
 		
 		JToolBarHelper::title(   JText::_( 'Global Configuration' ), 'config.png' );
-        JToolBarHelper::back();
+    JToolBarHelper::back();
 		JToolBarHelper::apply();
 		JToolBarHelper::save();
 		JToolBarHelper::cancel();
@@ -54,14 +54,14 @@ class mtwMultipleViewConfig extends JView
 
         //echo $query;
 
-	    $db->setQuery( $query, $pageNav->limitstart, $pageNav->limit );
+    $db->setQuery( $query, $pageNav->limitstart, $pageNav->limit );
 		$rows = $db->loadObjectList();
-        //print_r($db->getError());
+    //print_r($db->getError());
 
-        $this->assignRef('config', $mtwCFG);        
-        $this->assignRef('rows', $rows);
-        $this->assignRef('lists', $lists);
-        $this->assignRef('pageNav', $pageNav);
+    $this->assignRef('config', $mtwCFG);        
+    $this->assignRef('rows', $rows);
+    $this->assignRef('lists', $lists);
+    $this->assignRef('pageNav', $pageNav);
 
 		parent::display($tpl);
 	}

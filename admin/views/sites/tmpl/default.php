@@ -39,6 +39,9 @@ JHTML::_('behavior.tooltip');
 					<th width="20">
 						<input type="checkbox" name="toggle" value=""  onclick="checkAll(<?php echo count( $rows ); ?>);" />
 					</th>
+					<th width="20">
+						&nbsp;
+					</th>
 					<th nowrap="20%" class="title">
 						<?php echo JHTML::_('grid.sort',  'Name', 's.name', @$lists['order_Dir'], @$lists['order'] ); ?>
 					</th>
@@ -62,13 +65,14 @@ JHTML::_('behavior.tooltip');
 			</tfoot>
 			<tbody>
 <?php
-                        $rows = $this->rows;
+      $rows = $this->rows;
 
 			$k = 0;
 			for ($i=0, $n=count( $rows ); $i < $n; $i++) {
 				$row = &$rows[$i];
 
 				$checked		= JHTML::_('grid.checkedout',   $row, $i );
+				$url = JURI::root() . $this->config['path'] .DS. $row->id;
 			?>
 				<tr class="<?php echo "row$k"; ?>">
 					<td align="center">
@@ -76,6 +80,9 @@ JHTML::_('behavior.tooltip');
 					</td>
 					<td align="center">
 						<?php echo $checked; ?>
+					</td>
+					<td align="center">
+						<a href="<?php echo $url; ?>" target="_blank"><img src="components/com_mtwmultiple/images/go.jpg"></a>
 					</td>
 					<td>
 						<?php echo $row->name;?>

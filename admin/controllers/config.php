@@ -25,26 +25,26 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 		$this->registerTask( 'add'  , 	'edit' );
 	}
 
-    function display() {
+  function display() {
 
 		$type = JRequest::getVar('type');
 
 		$subMenus = array(
-			'Global' => 'global',
-			'Extensions' => 'extensions',
-			'Virtual Hosts' => 'virtual');
+		'Global' => 'global',
+		'Extensions' => 'extensions',
+		'Virtual Hosts' => 'virtual');
 
-			//JSubMenuHelper::addEntry(JText::_( 'Global' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'extensions\');', !in_array( $task, $subMenus));
-			foreach ($subMenus as $name => $extension) {
-				//print($extension."-".$task);
-				JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\''.$extension.'\');', $extension == $type ? 1 : 0);
-			}
-		
-			//echo $type;
-     	JRequest::setVar( 'view', $type );
-      
-      parent::display();
-    }
+		//JSubMenuHelper::addEntry(JText::_( 'Global' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'extensions\');', !in_array( $task, $subMenus));
+		foreach ($subMenus as $name => $extension) {
+			//print($extension."-".$task);
+			JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\''.$extension.'\');', $extension == $type ? 1 : 0);
+		}
+	
+		//echo $type;
+   	JRequest::setVar( 'view', $type );
+    
+    parent::display();
+  }
 
 	function apply() {
 
@@ -53,12 +53,12 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 
 		$data = JRequest::get( 'post' );
 
+		//print_r($data);
 		//print_r($_POST['virtual']);
 		//echo JRequest::_cleanVar($_POST['virtual'], 0);
 
-		$xml = simplexml_load_string($_POST['virtual']);
-
-		print_r($xml);
+		//$xml = simplexml_load_string($_POST['virtual']);
+		//print_r($xml);
 
 		if ($model->saveConfig($data)) {
 			$msg = JText::_( 'Configuration Applied!' );
@@ -66,8 +66,10 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 			$msg = JText::_( 'Error Applying Configuration' );
 		}
 
-		//$this->display();
+		//$link = "index.php?option=com_mtwmultiple&controller=config&type={$type}";
+		//$this->setRedirect($link, $msg);
 	}
+
 
 	/**
 	 * save a record (and redirect to main page)
@@ -87,7 +89,7 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 			$msg = JText::_( 'Error Saving Configuration' );
 		}
 
-		$link = 'index.php?option=com_mtwmultiple';
+		$link = "index.php?option=com_mtwmultiple&controller=config&type={$type}";
 		$this->setRedirect($link, $msg);
 	}
 
