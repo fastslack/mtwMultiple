@@ -2,103 +2,93 @@
 <!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
 <install type="component" version="1.5.0">
 	<name>mtwMultiple</name>
-	<creationDate>2008-12-16</creationDate>
-	<author>Matias Aguirre</author>
-	<authorEmail>maguirre@matware.com.ar</authorEmail>
-	<authorUrl>http://www.matware.com.ar</authorUrl>
-	<copyright>CopyLEFT</copyright>
-	<license>GNU/GPL</license>
-	<version>0.1.0</version>
-	<description>This component allows to make multiple Joomla installations</description>
-	<files folder="site">
-		<filename>index.html</filename>
-	</files>
-        <install>
-		<sql>
-			<file charset="utf8" driver="mysql">sql/install.sql</file>
-		</sql>
-        </install>
-<!--
-	<uninstall>
-		<sql>
-			<file charset="utf8" driver="mysql">sql/uninstall.sql</file>
-		</sql>
-	</uninstall>	
--->
-	<administration>
-		<menu>mtwMultiple</menu>
-		
-		<files folder="admin">
-            <!--<filename>index.html</filename>-->
-            <!--<filename>mtwmultiple.xml</filename>-->
-		    <filename>admin.mtwmultiple.php</filename>
-		    <filename>mtwmultiple_config.php.orig</filename>
-
-		    <filename>include/index.html</filename>
-		    <filename>include/helper.php</filename>
-
-		    <filename>images/index.html</filename>
-		    <filename>images/logo.png</filename>
-
-		    <filename>controller.php</filename>
-		    <filename>controllers/index.html</filename>
-		    <filename>controllers/cpanel.php</filename>
-            <filename>controllers/config.php</filename>
-            <filename>controllers/sites.php</filename>
-		    <filename>controllers/help.php</filename>
-
-		    <filename>extensions/index.html</filename>
-
-		    <filename>helpers/upload.php</filename>
-		    <filename>helpers/index.html</filename>
-
-		    <filename>js/jquery.js</filename>
-		    <filename>js/index.html</filename>
-
-		    <filename>models/config.php</filename>
-		    <filename>models/sites.php</filename>
-		    <filename>models/index.html</filename>
-
-			<filename>plugin/index.html</filename>
-		    <filename>plugin/mtwFirstInstall.php</filename>
-		    <filename>plugin/mtwFirstInstall.xml</filename>
-
-		    <filename>views/cpanel/view.html.php</filename>
-		    <filename>views/cpanel/index.html</filename>
-		    <filename>views/cpanel/tmpl/default.php</filename>
-		    <filename>views/cpanel/tmpl/index.html</filename>
-
-		    <filename>views/config/view.html.php</filename>
-		    <filename>views/config/tmpl/default.php</filename>
-		    <filename>views/config/index.html</filename>
-		    <filename>views/config/tmpl/index.html</filename>
-
-            <filename>views/sites/view.html.php</filename>
-            <filename>views/sites/tmpl/default.php</filename>
-            <filename>views/sites/tmpl/form.php</filename>
-            <filename>views/sites/index.html</filename>
-            <filename>views/sites/tmpl/index.html</filename>
-
-            <filename>views/help/view.html.php</filename>
-            <filename>views/help/tmpl/default.php</filename>
-            <filename>views/help/index.html</filename>
-            <filename>views/help/tmpl/index.html</filename>
-
-		    <filename>tables/index.html</filename>
-                    
-            <filename>sql/index.html</filename>
-            <filename>sql/install.sql</filename>
-			<filename>sql/joomla.sql</filename>
-			<filename>sql/firstinstall.sql</filename>
-		</files>
-                <!--
-		<languages folder="admin">
-			<language tag="de-DE">languages/de-DE.com_mtwmultiple.ini</language>
-			<language tag="es-ES">languages/es-ES.com_mtwmultiple.ini</language>
-			<language tag="pt-BR">languages/pt-BR.com_mtwmultiple.ini</language>
-			<language tag="pl-PL">languages/pl-PL.com_mtwmultiple.ini</language>	
-			<language tag="fr-FR">languages/fr-FR.com_mtwmultiple.ini</language>
-                </languages>
-                -->
-	</administration>
-</install>
+	<creationDate>2009-12-16</creationDate>
+  <author>Matias Aguirre</author>
+  <authorEmail>maguirre@matware.com.ar</authorEmail>
+  <authorUrl>http://www.matware.com.ar</authorUrl>
+  <copyright>Copyleft 2007 2008 2009</copyright>
+  <license>GNU</license>
+	<version>0.2.0</version>
+	<description/>
+    <install>
+	<sql>
+		<file charset="utf8" driver="mysql">sql/install.sql</file>
+	</sql>
+    </install>
+<files folder="site"><filename>index.html</filename>
+</files>
+<administration>
+<menu>mtwMultiple</menu>
+<files folder="admin">
+<filename>admin.mtwmultiple.php</filename>
+<filename>controller.php</filename>
+<filename>controllers/config.php</filename>
+<filename>controllers/cpanel.php</filename>
+<filename>controllers/help.php</filename>
+<filename>controllers/index.html</filename>
+<filename>controllers/sites.php</filename>
+<filename>css/mtwmultiple.css</filename>
+<filename>extensions/index.html</filename>
+<filename>helpers/config.php</filename>
+<filename>helpers/index.html</filename>
+<filename>helpers/upload.php</filename>
+<filename>images/go.jpg</filename>
+<filename>images/index.html</filename>
+<filename>images/logo.png</filename>
+<filename>include/helper.php</filename>
+<filename>include/index.html</filename>
+<filename>index.html</filename>
+<filename>js/index.html</filename>
+<filename>js/jquery.js</filename>
+<filename>languages/de-DE.com_mtwmultiple.ini</filename>
+<filename>languages/es-ES.com_mtwmultiple.ini</filename>
+<filename>languages/fr-FR.com_mtwmultiple.ini</filename>
+<filename>languages/index.html</filename>
+<filename>languages/pl-PL.com_mtwmultiple.ini</filename>
+<filename>languages/pt-BR.com_mtwmultiple.ini</filename>
+<filename>models/config.php</filename>
+<filename>models/extensions.php</filename>
+<filename>models/global.php</filename>
+<filename>models/index.html</filename>
+<filename>models/sites.php</filename>
+<filename>models/virtual.php</filename>
+<filename>mtwmultiple_config.php.orig</filename>
+<filename>mtwmultiple.virtualhost.conf.orig</filename>
+<filename>plugin/index.html</filename>
+<filename>plugin/mtwFirstInstall.php</filename>
+<filename>plugin/mtwFirstInstall.xml</filename>
+<filename>sql/firstinstall.sql</filename>
+<filename>sql/index.html</filename>
+<filename>sql/install.sql</filename>
+<filename>sql/joomla.sql</filename>
+<filename>tables/index.html</filename>
+<filename>views/config/index.html</filename>
+<filename>views/config/tmpl/default.php</filename>
+<filename>views/config/tmpl/index.html</filename>
+<filename>views/config/view.html.php</filename>
+<filename>views/cpanel/index.html</filename>
+<filename>views/cpanel/tmpl/default.php</filename>
+<filename>views/cpanel/tmpl/index.html</filename>
+<filename>views/cpanel/view.html.php</filename>
+<filename>views/extensions/index.html</filename>
+<filename>views/extensions/tmpl/default.php</filename>
+<filename>views/extensions/tmpl/index.html</filename>
+<filename>views/extensions/view.html.php</filename>
+<filename>views/global/index.html</filename>
+<filename>views/global/tmpl/default.php</filename>
+<filename>views/global/tmpl/index.html</filename>
+<filename>views/global/view.html.php</filename>
+<filename>views/help/index.html</filename>
+<filename>views/help/tmpl/default.php</filename>
+<filename>views/help/tmpl/index.html</filename>
+<filename>views/help/view.html.php</filename>
+<filename>views/sites/index.html</filename>
+<filename>views/sites/tmpl/default.php</filename>
+<filename>views/sites/tmpl/form.php</filename>
+<filename>views/sites/tmpl/index.html</filename>
+<filename>views/sites/view.html.php</filename>
+<filename>views/virtual/index.html</filename>
+<filename>views/virtual/tmpl/default.php</filename>
+<filename>views/virtual/tmpl/index.html</filename>
+<filename>views/virtual/view.html.php</filename>
+</files></administration></install>
