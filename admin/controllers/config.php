@@ -34,16 +34,16 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 			'Extensions' => 'extensions',
 			'Virtual Hosts' => 'virtual');
 
-		//JSubMenuHelper::addEntry(JText::_( 'Global' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'extensions\');', !in_array( $task, $subMenus));
-		foreach ($subMenus as $name => $extension) {
-			//print($extension."-".$task);
-			JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\''.$extension.'\');', $extension == $type ? 1 : 0);
-		}
+			//JSubMenuHelper::addEntry(JText::_( 'Global' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'extensions\');', !in_array( $task, $subMenus));
+			foreach ($subMenus as $name => $extension) {
+				//print($extension."-".$task);
+				JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\''.$extension.'\');', $extension == $type ? 1 : 0);
+			}
 		
-		//echo $type;
-       	JRequest::setVar( 'view', $type );
-        
-        parent::display();
+			//echo $type;
+     	JRequest::setVar( 'view', $type );
+      
+      parent::display();
     }
 
 	function apply() {
@@ -113,9 +113,9 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 			$msg = JText::_( 'Extension Error' );
 		}
 
-		JRequest::setVar( 'view', 'config' );
+		//JRequest::setVar( 'view', 'config' );
 
-		$link = 'index.php?option=com_mtwmultiple&controller=config&task=extensions';
+		$link = 'index.php?option=com_mtwmultiple&controller=config&type=extensions';
 		$this->setRedirect($link, $msg);
 	}
 
