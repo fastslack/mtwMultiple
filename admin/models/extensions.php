@@ -156,17 +156,24 @@ class mtwMultipleModelExtensions extends JModel
 					//print_r($xml);
 					//echo $xml["type"];
 
+					$type = $db->quote( $db->getEscaped( $xml["type"] ) );
+					$name = $db->quote( $db->getEscaped( $xml->name ) );
+					$author = $db->quote( $db->getEscaped( $xml->author ) );
+					$creationDate = $db->quote( $db->getEscaped( $xml->creationDate ) );
+					$copyright = $db->quote( $db->getEscaped( $xml->copyright ) );
+					$license = $db->quote( $db->getEscaped( $xml->license ) );
+
 					// Insert extension
 					$query = "INSERT INTO #__mtwmultiple_extensions "
 					. " (filename, type, name, author, creationDate, copyright, license, authorEmail, authorUrl, version)"
-					. " VALUES ('". basename($filepath) ."','". $xml["type"] ."','". $xml->name ."','". $xml->author ."',"
-					. "'". $xml->creationDate ."','". $xml->copyright ."',"
-					. "'". $xml->license ."','". $xml->authorEmail ."','". $xml->authorUrl ."','". $xml->version ."')";
+					. " VALUES ('". basename($filepath) ."', {$type}, {$name}, {$author},"
+					. "{$creationDate}, {$copyright}, {$license}, "
+					. "'". $xml->authorEmail ."','". $xml->authorUrl ."','". $xml->version ."')";
 					$db->setQuery( $query );
 					$result = $db->query();				
 
-					//echo $query . "<br>";
-					//echo $xml->getName() . "<br />";
+					echo $query . "<br>";
+					echo $xml->getName() . "<br />";
 					break;
 				}
 

@@ -30,14 +30,18 @@ class mtwMultipleModelVirtual extends JModel
 		require_once('components'.DS.'com_mtwmultiple'.DS.'helpers'.DS.'config.php' );
 		jimport('joomla.filesystem.file');
 
-        $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-        if (JFile::exists( $configFile )) {
+    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+    if (JFile::exists( $configFile )) {
 			include( $configFile );
-        }else{
+    }else{
 			JFile::copy( $configFile . '.orig', $configFile );
 		}
-		
+
 		$virtual = ConfigHelper::removeSlash( $post['vhostpath'] );
+
+    if (!JFolder::exists( JURI::root() . $virtual )) {
+			JFolder::create( JPATH_ROOT .DS. $virtual );
+    }
 
 		$configText = "<?php\n";
 		$configText .= "\$mtwCFG['path'] = \"" . $mtwCFG['path'] . "\";\n";
@@ -47,7 +51,20 @@ class mtwMultipleModelVirtual extends JModel
 		$return = JFile::write($configFile, $configText);
 
 		$virtualFile = JPATH_COMPONENT.DS.'mtwmultiple.virtualhost.conf';
-		//$return = JFile::write($virtualFile, $post['virtual']);
+
+		$vh = $_POST['virtual'];
+		$vh = str_replace("\\", "", $vh);
+
+		//print_r($vh);
+/*
+    for($i = 0; $i < strlen($vh); $i++){
+        // Pack this number into a 4-byte string
+        // (Or multiple one-byte strings, depending on context.)               
+        echo "<b>{$vh[$i]}</b> ".ord($vh[$i]) . "<br>";
+        //$str .= pack("N",$v);
+    }
+*/
+		$return = JFile::write($virtualFile, $vh);
 
 		return $return;
 

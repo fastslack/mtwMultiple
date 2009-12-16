@@ -40,11 +40,11 @@ class mtwMultipleModelConfig extends JModel
 
 		jimport('joomla.filesystem.file');
 
-        $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
 
-        if (JFile::exists( $configFile )) {
+    if (JFile::exists( $configFile )) {
 			require_once( $configFile );
-        }else{
+    }else{
 			JFile::copy( $configFile . '.orig', $configFile );
 		}
 
