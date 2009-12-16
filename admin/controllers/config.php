@@ -66,8 +66,8 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 			$msg = JText::_( 'Error Applying Configuration' );
 		}
 
-		//$link = "index.php?option=com_mtwmultiple&controller=config&type={$type}";
-		//$this->setRedirect($link, $msg);
+		$link = "index.php?option=com_mtwmultiple&controller=config&type={$type}";
+		$this->setRedirect($link, $msg);
 	}
 
 
