@@ -25,29 +25,40 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 		$this->registerTask( 'add'  , 	'edit' );
 	}
 
-	function upload() {
+    function display() {
 
-		$model = $this->getModel('config');
+		$type = JRequest::getVar('type');
 
-		$data = JRequest::get( 'post' );
+		$subMenus = array(
+			'Global' => 'global',
+			'Extensions' => 'extensions',
+			'Virtual Hosts' => 'virtual');
 
-		if ($model->upload($data)) {
-			$msg = JText::_( 'Extension Added!' );
-		} else {
-			$msg = JText::_( 'Extension Error' );
+		//JSubMenuHelper::addEntry(JText::_( 'Global' ), '#" onclick="javascript:document.adminForm.type.value=\'\';submitbutton(\'extensions\');', !in_array( $task, $subMenus));
+		foreach ($subMenus as $name => $extension) {
+			//print($extension."-".$task);
+			JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\''.$extension.'\');', $extension == $type ? 1 : 0);
 		}
-
-		JRequest::setVar( 'view', 'config' );
-
-		$link = 'index.php?option=com_mtwmultiple&controller=config';
-		$this->setRedirect($link, $msg);
-	}
+		
+		//echo $type;
+       	JRequest::setVar( 'view', $type );
+        
+        parent::display();
+    }
 
 	function apply() {
 
-		$model = $this->getModel('config');
+		$type = JRequest::getVar('type');
+		$model = $this->getModel($type);
 
 		$data = JRequest::get( 'post' );
+
+		//print_r($_POST['virtual']);
+		//echo JRequest::_cleanVar($_POST['virtual'], 0);
+
+		$xml = simplexml_load_string($_POST['virtual']);
+
+		print_r($xml);
 
 		if ($model->saveConfig($data)) {
 			$msg = JText::_( 'Configuration Applied!' );
@@ -55,10 +66,7 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 			$msg = JText::_( 'Error Applying Configuration' );
 		}
 
-		JRequest::setVar( 'view', 'config' );
-
-		$link = 'index.php?option=com_mtwmultiple&controller=config';
-		$this->setRedirect($link, $msg);
+		//$this->display();
 	}
 
 	/**
@@ -67,7 +75,9 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 	 */
 	function save()
 	{
-		$model = $this->getModel('config');
+		
+		$type = JRequest::getVar('type');
+		$model = $this->getModel($type);
 
 		$data = JRequest::get( 'post' );
 
@@ -91,13 +101,23 @@ class mtwMultipleControllerConfig extends mtwMultipleController
 		$this->setRedirect( 'index.php?option=com_mtwmultiple', $msg );
 	}
 
-    function display() {
-        
-        JRequest::setVar( 'view', 'config' );
-        
-        parent::display();
-    }
+	function upload() {
 
+		$model = $this->getModel('extensions');
+
+		$data = JRequest::get( 'post' );
+
+		if ($model->upload($data)) {
+			$msg = JText::_( 'Extension Added!' );
+		} else {
+			$msg = JText::_( 'Extension Error' );
+		}
+
+		JRequest::setVar( 'view', 'config' );
+
+		$link = 'index.php?option=com_mtwmultiple&controller=config&task=extensions';
+		$this->setRedirect($link, $msg);
+	}
 
 }
 ?>
