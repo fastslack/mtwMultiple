@@ -12,7 +12,7 @@
 defined('_JEXEC') or die();
 
 jimport('joomla.application.component.model');
-
+jimport('joomla.filesystem.file');
 
 class mtwMultipleModelSites extends JModel
 {
@@ -27,8 +27,6 @@ class mtwMultipleModelSites extends JModel
 
 	function addSiteFiles( $post ) {
     global $mainframe;
-
-    jimport('joomla.filesystem.file');
 
     $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
 		if (JFile::exists( $configFile )) {
@@ -467,6 +465,41 @@ class mtwMultipleModelSites extends JModel
 		
 		return true;
 	}
+
+	function addVirtual($data){
+
+		//print_r($data);
+
+    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+		if (JFile::exists( $configFile )) {
+			include( $configFile );
+		}
+
+		// Getting site ID
+		$db =& JFactory::getDBO();
+    $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
+    $db->setQuery( $query );
+    $siteID = $db->loadResult();
+		
+		$path = JPATH_ROOT.DS.$mtwCFG['path'].DS.$siteID;
+
+		$vh = JFile::read(JPATH_ADMINISTRATOR .DS.'components'.DS.'com_mtwmultiple'.DS.'mtwmultiple.virtualhost.conf');
+		
+		$vh = str_replace("{EMAIL}", $data['email'], $vh);
+		$vh = str_replace("{DOCROOT}", $path, $vh);
+		$vh = str_replace("{SERVER}", $data['domain'], $vh);
+
+		$vhfile = JPATH_ROOT.DS.$mtwCFG['virtual'].DS."{$siteID}-{$data['domain']}";
+
+		//echo $vhfile."<br>";
+
+		if (!JFile::write($vhfile, $vh)) {
+			return false;
+		}
+
+		return true;
+	}
+
 
 	function removeSiteDB($siteID){
 		$db =& JFactory::getDBO();

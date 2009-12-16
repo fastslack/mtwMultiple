@@ -82,7 +82,8 @@ class mtwMultipleControllerSites extends mtwMultipleController
 		} else {
 			$msg = JText::_( 'Error With DB Insertion' );
 		}
-                
+
+       
 		if ($model->addSiteConfig($data)) {
 			$msg = JText::_( 'Joomla Site Added!' );
 		} else {
@@ -93,6 +94,15 @@ class mtwMultipleControllerSites extends mtwMultipleController
 			$msg = JText::_( 'Joomla Site Added!' );
 		} else {
 			$msg = JText::_( 'Error Creating Config File' );
+		}
+
+		//print_r($data);
+		if ($data['vh'] == 1) {
+			if ($model->addVirtual($data)) {
+				$msg = JText::_( 'Joomla Site Added!' );
+			} else {
+				$msg = JText::_( 'Error Creating Config File' );
+			}
 		}
 
 		$link = 'index.php?option=com_mtwmultiple&controller=sites';

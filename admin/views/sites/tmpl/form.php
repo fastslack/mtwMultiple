@@ -122,6 +122,40 @@ defined('_JEXEC') or die('Restricted access');
 		    </td>
 		</tr>
 		</table>
+
+		<table class="adminlist">
+			<tr>
+				<td colspan="2">
+					<h3><?php echo JText::_( "Virtual Hosts" ); ?></h3>
+				</td>
+			</tr>
+		  <tr>    
+		      <td align="right" width="40%">
+	          <?php echo JText::_( "Enable Apache Virtual Host" ); ?>
+		      </td>   
+		      <td>        
+	          <?php
+              echo $this->lists['vh'];
+/*
+              if ($this->ext['aj'] != "com_sef") {
+                  echo "<div style=\"float: right; color: red; \">" . JText::_( "Artio JoomSEF Uninstalled" ) . "</div>";
+              }else{
+                  echo "<div style=\"float: right; color: blue; \">" . JText::_( "Artio JoomSEF Installed" ) . "</div>";
+              }
+*/
+	          ?>
+		      </td>
+		  </tr>
+		  <tr>    
+		      <td align="right" width="40%">
+	          <?php echo JText::_( "Domain name" ); ?>
+		      </td>   
+		      <td>        
+	          <input type="domain" name="domain" />
+		      </td>
+		  </tr>
+		</table>
+
 	</td>
 	<td width="50%" valign="top">
 		<table class="adminlist">

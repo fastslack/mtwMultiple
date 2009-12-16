@@ -127,9 +127,12 @@ class mtwMultipleViewSites extends JView {
 		*/
 		include_once JPATH_ROOT . "/libraries/joomla/html/html/select.php";
 		$options = JHTMLSelect::Options( $rows, "id", "name" );
+
+		$lists['vh'] = JHTML::_('select.booleanlist', 'vh', '', 0);
 	
 		$this->assignRef('options', $options);
-	
+		$this->assignRef('lists', $lists);	
+
 		parent::display($tpl);
 	} 
 
