@@ -115,7 +115,7 @@ class mtwMultipleModelSites extends JModel
             JFile::copy( JPATH_ADMINISTRATOR .DS. 'index2.php', $newSitePath.DS.'administrator/index2.php');
             JFile::copy( JPATH_ADMINISTRATOR .DS. 'index3.php', $newSitePath.DS.'administrator/index3.php');
             JFile::copy( JPATH_ADMINISTRATOR .DS. 'index.php', $newSitePath.DS.'administrator/index.php');
-            JFolder::create( $newSitePath.DS.'administrator/language');
+            JFolder::copy( JPATH_ADMINISTRATOR .DS. 'language/', $newSitePath.DS.'administrator/language/');
             symlink ( JPATH_ADMINISTRATOR .DS. 'language/index.html', $newSitePath .DS. 'administrator/language/index.html');
             symlink ( JPATH_ADMINISTRATOR .DS. 'language/en-GB', $newSitePath .DS. 'administrator/language/en-GB');
             symlink ( JPATH_ADMINISTRATOR .DS. 'modules', $newSitePath .DS. 'administrator/modules');
@@ -143,6 +143,7 @@ class mtwMultipleModelSites extends JModel
 
             symlink ( JPATH_SITE .DS. 'includes', $newSitePath .DS. 'includes');
             //symlink ( JPATH_SITE .DS. 'installation', $newSitePath .DS. 'installation');
+						JFolder::copy( JPATH_SITE .DS. 'language/', $newSitePath.DS.'language');
             symlink ( JPATH_SITE .DS. 'libraries', $newSitePath .DS. 'libraries');
 
             JFolder::copy( JPATH_SITE .DS. 'logs/', $newSitePath.DS.'logs');
