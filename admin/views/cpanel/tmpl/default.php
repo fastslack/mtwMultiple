@@ -79,20 +79,20 @@ table.thisform2 td {
     <table width="100%" class="thisform2">
     <tr class="thisform2">
     	<td align="center" height="100px" width="33%" class="thisform2" colspan="3">
-        	<a href="index2.php?option=com_mtwmultiple&amp;controller=config" style="text-decoration:none;">
+        	<a href="index.php?option=com_mtwmultiple&amp;controller=config&amp;type=global" style="text-decoration:none;">
             	<img src="templates/khepri/images/header/icon-48-config.png" align="middle" border="0"/><br />
 				<?php echo JText::_( 'Configuration' ); ?>
             </a>
         </td>
         <td align="center" height="100px" width="33%" class="thisform2">
-            <a href="index2.php?option=com_mtwmultiple&amp;controller=sites" style="text-decoration:none;">
+            <a href="index.php?option=com_mtwmultiple&amp;controller=sites" style="text-decoration:none;">
             	<img src="templates/khepri/images/header/icon-48-plugin.png" align="middle" border="0" />
             	<br />
             	<?php echo JText::_( "Sites") ;?>
             	</a>
         </td>
         <td align="center" height="100px" width="33%" class="thisform2">
-            <a href="index2.php?option=com_mtwmultiple&amp;controller=help" style="text-decoration:none;">
+            <a href="index.php?option=com_mtwmultiple&amp;controller=help" style="text-decoration:none;">
                 <img src="templates/khepri/images/header/icon-48-help_header.png" align="middle" border="0"/>
                 <br />
                 <?php echo JText::_( "Help" ) ;?>
