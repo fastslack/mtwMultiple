@@ -70,6 +70,7 @@ class mtwMultipleModelSites extends JModel
     }
 
     JFolder::create( $newSitePath);
+		symlink ( $siteID, $sitesPath.DS.$post['title'] );
 
     /* index.php and index2.php */
     JFile::copy( JPATH_SITE .DS. 'index.php', $newSitePath.DS.'index.php');
