@@ -11,14 +11,14 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-jimport('joomla.application.component.model');
-jimport('joomla.filesystem.file');
-
 class mtwMultipleModelSites extends JModel
 {
 	function __construct()
 	{
 		parent::__construct();
+
+		jimport('joomla.application.component.model');
+		jimport('joomla.filesystem.file');
 
 		//$array = JRequest::getVar('cid',  0, '', 'array');
 		//$this->setId((int)$array[0]);
@@ -204,16 +204,12 @@ class mtwMultipleModelSites extends JModel
     $config =& JFactory::getConfig();
     require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
 
-    $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
-    $db->setQuery( $query );
-    $siteID = $db->loadResult();            
-
     $dbtype = $config->getValue('config.dbtype');
-    $host = $config->getValue('config.host');
-    $user = $config->getValue('config.user');
-    $password = $config->getValue('config.password');
-    $dbname = $config->getValue('config.db');
-    $dbprefix = "j" . $siteID . "_";
+    $host = $post['c_hostname'];
+    $user = $post['c_username'];
+    $password = $post['c_password'];
+    $dbname = $post['c_database'];
+    $dbprefix = $post['c_prefix'];
 
     $newDB = & JInstallationHelper::getDBO($dbtype, $host, $user, $password, $dbname, $dbprefix);
 

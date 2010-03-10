@@ -98,7 +98,7 @@ class mtwMultipleViewSites extends JView {
 		parent::display($tpl);
 	}
 
-    function _displayForm ($tpl = null) {
+  function _displayForm ($tpl = null) {
 		global $mainframe;
 
 		JToolBarHelper::title(  JText::_( 'Add Joomla Site' ), 'plugin.png' );
@@ -119,19 +119,37 @@ class mtwMultipleViewSites extends JView {
 
 		$db->setQuery( $query );
 		$rows = $db->loadObjectList();
-	
+
 		//print_r($rows);
-	
+
 		/*
 			jimport("joomla.html.html.select"); Not work?
 		*/
 		include_once JPATH_ROOT . "/libraries/joomla/html/html/select.php";
 		$options = JHTMLSelect::Options( $rows, "id", "name" );
 
+		$tblSites = new TableSites(&$db);
+
+	  $c_db = new JObject;
+	  $c_db->set('c_hostname', $mainframe->getCfg('host'));
+	  $c_db->set('c_username', $mainframe->getCfg('user'));
+	  $c_db->set('c_password', $mainframe->getCfg('password'));
+	  $c_db->set('c_database', $mainframe->getCfg('db'));
+	  $c_db->set('c_prefix', 'j'.$tblSites->getNewID().'_');
+
+	  $m_db = new JObject;
+	  $m_db->set('m_hostname', $mainframe->getCfg('host'));
+	  $m_db->set('m_username', $mainframe->getCfg('user'));
+	  $m_db->set('m_password', $mainframe->getCfg('password'));
+	  $m_db->set('m_database', $mainframe->getCfg('db'));
+	  $m_db->set('m_prefix', $mainframe->getCfg('dbprefix'));
+
 		$lists['vh'] = JHTML::_('select.booleanlist', 'vh', '', 0);
-	
+
 		$this->assignRef('options', $options);
-		$this->assignRef('lists', $lists);	
+		$this->assignRef('lists', $lists);
+		$this->assignRef('m_db', $m_db);
+		$this->assignRef('c_db', $c_db);	
 
 		parent::display($tpl);
 	} 

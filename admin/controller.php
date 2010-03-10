@@ -12,8 +12,13 @@ jimport('joomla.application.component.controller');
 
 class mtwMultipleController extends JController {
 
+	/**
+	 * constructor (registers additional tasks to methods)
+	 * @return void
+	 */
+
 	function display() {
-	
+		
 		parent::display();
 	}
 }

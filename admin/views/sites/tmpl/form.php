@@ -81,7 +81,7 @@ defined('_JEXEC') or die('Restricted access');
 				<h3><?php echo JText::_( "Add Joomla Site" ); ?></h3> </td>
 		</tr>
 		<tr>
-			<td align="right">
+			<td align="right" width="40%">
 				<?php echo JText::_( "Site Name" ); ?>
 			</td>
 			<td>
@@ -122,6 +122,106 @@ defined('_JEXEC') or die('Restricted access');
 		    </td>
 		</tr>
 		</table>
+<!--
+		<table class="adminlist">
+			<tr>
+				<td colspan="2">
+					<h3><?php echo JText::_( "Master Database" ); ?></h3>
+				</td>
+			</tr>
+		<tr>
+			<td align="right" width="40%">
+				<?php echo JText::_( "Hostname" ); ?>
+			</td>
+			<td>
+				<input type="text" name="m_hostname" value="<?php echo $this->m_db->m_hostname;?>" />
+			</td>
+		    </tr>
+		<tr>
+			<td align="right">
+				<?php echo JText::_( "Database" ); ?>
+			</td>
+			<td>
+				<input type="text" name="m_database" value="<?php echo $this->m_db->m_database;?>" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<?php echo JText::_( "Username" ); ?>
+			</td>
+			<td>
+				<input type="text" name="m_username" value="<?php echo $this->m_db->m_username;?>" />
+		</td>
+    </tr>
+		<tr>
+		    <td align="right">
+		        <?php echo JText::_( "Password" ); ?>
+		    </td>
+		    <td>
+				<input type="password" name="m_password" value="<?php echo $this->m_db->m_password;?>" />
+		    </td>
+		</tr>
+
+		<tr>
+		    <td align="right">
+		        <?php echo JText::_( "Prefix" ); ?>
+		    </td>
+		    <td>
+				<input type="text" name="m_prefix" value="<?php echo $this->m_db->m_prefix;?>" />
+		    </td>
+		</tr>
+		</table>
+-->
+		<table class="adminlist">
+			<tr>
+				<td colspan="2">
+					<h3><?php echo JText::_( "Child Database" ); ?></h3>
+				</td>
+			</tr>
+		<tr>
+			<td align="right" width="40%">
+				<?php echo JText::_( "Hostname" ); ?>
+			</td>
+			<td>
+				<input type="text" name="c_hostname" value="<?php echo $this->c_db->c_hostname;?>" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<?php echo JText::_( "Database" ); ?>
+			</td>
+			<td>
+				<input type="text" name="c_database" value="<?php echo $this->c_db->c_database;?>" />
+			</td>
+		</tr>
+		<tr>
+			<td align="right">
+				<?php echo JText::_( "Username" ); ?>
+			</td>
+			<td>
+				<input type="text" name="c_username" value="<?php echo $this->c_db->c_username;?>" />
+		</td>
+    </tr>
+		<tr>
+		    <td align="right">
+		        <?php echo JText::_( "Password" ); ?>
+		    </td>
+		    <td>
+				<input type="password" name="c_password" value="<?php echo $this->c_db->c_password;?>" />
+		    </td>
+		</tr>
+		<tr>
+		    <td align="right">
+		        <?php echo JText::_( "Prefix" ); ?>
+		    </td>
+		    <td>
+				<input type="text" name="c_prefix" value="<?php echo $this->c_db->c_prefix;?>" />
+		    </td>
+		</tr>
+		</table>
+
+	</td>
+	<td width="50%" valign="top">
 
 		<table class="adminlist">
 			<tr>
@@ -156,8 +256,6 @@ defined('_JEXEC') or die('Restricted access');
 		  </tr>
 		</table>
 
-	</td>
-	<td width="50%" valign="top">
 		<table class="adminlist">
 		<tr>
 			<td colspan="2">

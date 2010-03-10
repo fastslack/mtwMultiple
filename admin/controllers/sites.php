@@ -22,26 +22,29 @@ class mtwMultipleControllerSites extends mtwMultipleController
 	{
 		parent::__construct();
 
+		require_once(JPATH_COMPONENT.DS.'tables'.DS.'sites.php');	
+		require_once(JPATH_COMPONENT.DS.'tables'.DS.'extensions.php');
+
 		// Register Extra tasks
 		//$this->registerTask( 'add'  , 	'edit' );
 	}
 
-    function display() {
-    
-        JRequest::setVar( 'view', 'sites' );
+  function display() {
+  
+      JRequest::setVar( 'view', 'sites' );
 
-        //echo $task;
+      //echo $task;
 
-        parent::display();
-    }
+      parent::display();
+  }
 
-    function add() {
-    
-        JRequest::setVar( 'view', 'sites' );
-        JRequest::setVar( 'layout', 'form'  );
+  function add() {
+  
+      JRequest::setVar( 'view', 'sites' );
+      JRequest::setVar( 'layout', 'form'  );
 
-        parent::display();
-    }
+      parent::display();
+  }
 
 	function apply() {
 
