@@ -17,7 +17,8 @@ jimport('joomla.filesystem.file');
 class mtwMultipleViewSites extends JView {
 
 	function display($tpl = null) {
-   	global $mainframe;
+
+		$mainframe = JFactory::getApplication();
 
     if($this->getLayout() == 'form') {
 		  $this->_displayForm($tpl);
@@ -36,6 +37,8 @@ class mtwMultipleViewSites extends JView {
 		JToolBarHelper::addNewX();
 		//JToolBarHelper::cancel();
 		//JToolBarHelper::save();
+		JToolBarHelper::spacer();
+		JToolBarHelper::preferences('com_mtwmultiple', '500');
 		JToolBarHelper::spacer();
 
 		$db =& JFactory::getDBO();
@@ -99,7 +102,8 @@ class mtwMultipleViewSites extends JView {
 	}
 
   function _displayForm ($tpl = null) {
-		global $mainframe;
+
+		$mainframe = JFactory::getApplication();
 
 		JToolBarHelper::title(  JText::_( 'Add Joomla Site' ), 'plugin.png' );
 		//JToolBarHelper::deleteList();

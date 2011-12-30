@@ -85,7 +85,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_( "Site Name" ); ?>
 			</td>
 			<td>
-				<input type="text" name="name" value="<?php echo $this->items['name'];?>" />
+				<input type="text" name="name" value="<?php echo isset($this->items['name']) ? $this->items['name'] : '';?>" />
 			</td>
 		    </tr>
 		<tr>
@@ -93,7 +93,7 @@ defined('_JEXEC') or die('Restricted access');
 				<?php echo JText::_( "Site Title" ); ?>
 			</td>
 			<td>
-				<input type="text" name="title" value="<?php echo $this->items['title'];?>" />
+				<input type="text" name="title" value="<?php echo isset($this->items['title']) ? $this->items['title'] : '';?>" />
 			</td>
 		    </tr>
 
@@ -102,7 +102,7 @@ defined('_JEXEC') or die('Restricted access');
 		        <?php echo JText::_( "E-Mail" ); ?>
 		    </td>
 		    <td>
-				<input type="text" name="email" value="<?php echo $this->items['email'];?>" />
+				<input type="text" name="email" value="<?php echo isset($this->items['email']) ? $this->items['email'] : '';?>" />
 		    </td>
 		</tr>
 		<tr>
@@ -122,7 +122,7 @@ defined('_JEXEC') or die('Restricted access');
 		    </td>
 		</tr>
 		</table>
-<!--
+
 		<table class="adminlist">
 			<tr>
 				<td colspan="2">
@@ -171,7 +171,7 @@ defined('_JEXEC') or die('Restricted access');
 		    </td>
 		</tr>
 		</table>
--->
+
 		<table class="adminlist">
 			<tr>
 				<td colspan="2">

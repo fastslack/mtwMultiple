@@ -20,7 +20,7 @@ require_once( JPATH_COMPONENT.DS.'controller.php' );
 //echo "<br>";
 
 // Require specific controller if requested
-$controller = JRequest::getVar('controller', 'cpanel');
+$controller = JRequest::getVar('controller', 'sites');
 
 if($controller) {
     $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
