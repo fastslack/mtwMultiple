@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.7.0" method="upgrade">
+ 
+	<name>mtwMultiple</name>
+	<!-- The following elements are optional and free of formatting constraints -->
+	<creationDate>2009-12-16</creationDate>
+	<author>Matias Aguirre</author>
+	<authorEmail>maguirre@matware.com.ar</authorEmail>
+	<authorUrl>http://www.matware.com.ar</authorUrl>
+	<copyright>Copyleft 2006 - 2012</copyright>
+	<license>GNU/GPL</license>
+	<!--  The version string is recorded in the components table -->
+	<version>0.2.1</version>
+	<!-- The description is optional and defaults to the name -->
+	<description>mtwMultiple allows Joomla duplications</description>
+ 
+	<install>
+		<sql>
+		<file charset="utf8" driver="mysql">sql/install.sql</file>
+		</sql>
+  </install>
+
+	<!-- Site Main File Copy Section -->
+	<!-- Note the folder attribute: This attribute describes the folder
+		to copy FROM in the package to install therefore files copied
+		in this section are copied from /site/ in the package -->
+	<files folder="site">
+		<filename>index.html</filename>
+	</files>
+ 
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu>mtwMultiple</menu>
+		<!-- Administration Main File Copy Section -->
+		<!-- Note the folder attribute: This attribute describes the folder
+			to copy FROM in the package to install therefore files copied
+			in this section are copied from /admin/ in the package -->
+		<files folder="admin">
+			<!-- Admin Main File Copy Section -->
+			<filename>index.html</filename>
+			<filename>admin.mtwmultiple.php</filename>
+			<filename>controller.php</filename>
+			<!-- SQL files section -->
+			<folder>controllers</folder>
+			<folder>css</folder>
+			<folder>extensions</folder>
+			<folder>helpers</folder>
+			<folder>include</folder>
+			<folder>js</folder>
+			<folder>language</folder>
+			<folder>models</folder>
+			<folder>plugin</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+	</administration>
+ 
+</extension>
