@@ -39,6 +39,7 @@
 			<!-- Admin Main File Copy Section -->
 			<filename>index.html</filename>
 			<filename>admin.mtwmultiple.php</filename>
+			<filename>config.xml</filename>
 			<filename>controller.php</filename>
 			<!-- SQL files section -->
 			<folder>controllers</folder>
@@ -55,5 +56,14 @@
 			<folder>views</folder>
 		</files>
 	</administration>
- 
+
+	<params>
+		<param type="spacer" default="&lt;b&gt;Global&lt;/b&gt;" />
+		<param name="path" type="text" default="sites" label="Target Directory" description="" size="20" />
+		<param name="virtual" type="list" default="0" label="Disable Virtual Hosts (Apache)" description="">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</param>
+	</params>
+
 </extension>
