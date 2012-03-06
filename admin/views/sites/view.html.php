@@ -25,10 +25,9 @@ class mtwMultipleViewSites extends JView {
 		  return;
     }
 
-		$configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-		if (JFile::exists( $configFile )) {
-			include( $configFile );
-		}
+		// Load the parameters.
+		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
+
 
 		JToolBarHelper::title(  JText::_( 'mtwMultiple Sites' ), 'plugin.png' );
 		JToolBarHelper::back();
@@ -38,7 +37,7 @@ class mtwMultipleViewSites extends JView {
 		//JToolBarHelper::cancel();
 		//JToolBarHelper::save();
 		JToolBarHelper::spacer();
-		JToolBarHelper::preferences('com_mtwmultiple', '500');
+		JToolBarHelper::preferences('com_mtwmultiple');
 		JToolBarHelper::spacer();
 
 		$db =& JFactory::getDBO();
@@ -96,7 +95,7 @@ class mtwMultipleViewSites extends JView {
 		$this->assignRef('rows', $rows);
 		$this->assignRef('lists', $lists);
 		$this->assignRef('pageNav', $pageNav);
-		$this->assignRef('config', $mtwCFG);
+		$this->assignRef('params', $params);
 
 		parent::display($tpl);
 	}

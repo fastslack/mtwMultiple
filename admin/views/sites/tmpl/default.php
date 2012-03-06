@@ -72,7 +72,7 @@ JHTML::_('behavior.tooltip');
 				$row = &$rows[$i];
 
 				$checked		= JHTML::_('grid.checkedout',   $row, $i );
-				$url = JURI::root() . $this->config['path'] .DS. $row->id;
+				$url = JURI::root() . $this->params->get('path') .DS. $row->id;
 			?>
 				<tr class="<?php echo "row$k"; ?>">
 					<td align="center">

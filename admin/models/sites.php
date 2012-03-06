@@ -26,16 +26,11 @@ class mtwMultipleModelSites extends JModel
 
 
 	function addSiteFiles( $post ) {
-    global $mainframe;
+    
+		$mainframe = JFactory::getApplication();
 
-    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-		if (JFile::exists( $configFile )) {
-		  include( $configFile );
-		}
-
-    //echo $mainframe->getPath( );
-    //print_r($mtwCFG);
-    //print_r($post);
+		// Load the parameters.
+		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 
     /* Insert into Database */
     $my =& JFactory::getUser();      
@@ -62,7 +57,7 @@ class mtwMultipleModelSites extends JModel
     $db->setQuery( $query );
     $siteID = $db->loadResult();
 
-    $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
+    $sitesPath = JPATH_SITE.DS.$params->get( 'path' );
     $newSitePath = $sitesPath .DS. $siteID;
 
     if (!JFolder::exists( $sitesPath )) {              
@@ -74,7 +69,7 @@ class mtwMultipleModelSites extends JModel
 
     /* index.php and index2.php */
     JFile::copy( JPATH_SITE .DS. 'index.php', $newSitePath.DS.'index.php');
-    JFile::copy( JPATH_SITE .DS. 'index2.php', $newSitePath.DS.'index2.php');
+    //JFile::copy( JPATH_SITE .DS. 'index2.php', $newSitePath.DS.'index2.php');
 
     /* Administrator Files */
     JFolder::create( $newSitePath.DS.'administrator');
@@ -113,12 +108,12 @@ class mtwMultipleModelSites extends JModel
     symlink ( JPATH_ADMINISTRATOR .DS. 'help', $newSitePath .DS. 'administrator/help');
     symlink ( JPATH_ADMINISTRATOR .DS. 'images', $newSitePath .DS. 'administrator/images');
     symlink ( JPATH_ADMINISTRATOR .DS. 'includes', $newSitePath .DS. 'administrator/includes');
-    JFile::copy( JPATH_ADMINISTRATOR .DS. 'index2.php', $newSitePath.DS.'administrator/index2.php');
-    JFile::copy( JPATH_ADMINISTRATOR .DS. 'index3.php', $newSitePath.DS.'administrator/index3.php');
+    //JFile::copy( JPATH_ADMINISTRATOR .DS. 'index2.php', $newSitePath.DS.'administrator/index2.php');
+    //JFile::copy( JPATH_ADMINISTRATOR .DS. 'index3.php', $newSitePath.DS.'administrator/index3.php');
     JFile::copy( JPATH_ADMINISTRATOR .DS. 'index.php', $newSitePath.DS.'administrator/index.php');
     JFolder::copy( JPATH_ADMINISTRATOR .DS. 'language/', $newSitePath.DS.'administrator/language/');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'language/index.html', $newSitePath .DS. 'administrator/language/index.html');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'language/en-GB', $newSitePath .DS. 'administrator/language/en-GB');
+    //symlink ( JPATH_ADMINISTRATOR .DS. 'language/index.html', $newSitePath .DS. 'administrator/language/index.html');
+    //symlink ( JPATH_ADMINISTRATOR .DS. 'language/en-GB', $newSitePath .DS. 'administrator/language/en-GB');
     symlink ( JPATH_ADMINISTRATOR .DS. 'modules', $newSitePath .DS. 'administrator/modules');
     // Admin Templates
     JFolder::copy( JPATH_ADMINISTRATOR .DS. 'templates/', $newSitePath.DS.'administrator/templates/');
@@ -198,7 +193,8 @@ class mtwMultipleModelSites extends JModel
 	}
 
 	function addSiteDB( $post ) {
-    global $mainframe;
+    
+		$mainframe = JFactory::getApplication();
 
     $db =& JFactory::getDBO();
     $config =& JFactory::getConfig();
@@ -243,15 +239,13 @@ class mtwMultipleModelSites extends JModel
 
 
 	function addSiteConfig( $post ) {
-    global $mainframe;
+
+    $mainframe = JFactory::getApplication();
 
     $db =& JFactory::getDBO();
     $config =& JFactory::getConfig();
 
-    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-		if (JFile::exists( $configFile )) {
-			include( $configFile );
-		}
+		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 
     /* Create Joomla Installation */
     $query = "SELECT id FROM #__mtwmultiple_sites ORDER BY id DESC LIMIT 1";
@@ -259,7 +253,7 @@ class mtwMultipleModelSites extends JModel
     $siteID = $db->loadResult();
 
     /* Create Joomla Installation */
-    $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
+    $sitesPath = JPATH_SITE.DS.$params->get( 'path' );
     $newSitePath = $sitesPath .DS. $siteID;
 
 		$newConfig = new JRegistry('config');
@@ -373,7 +367,7 @@ class mtwMultipleModelSites extends JModel
 
 		// Get the config registry in PHP class format and write it to configuation.php
 		jimport('joomla.filesystem.file');
-		if (JFile::write($fname, $newConfig->toString('PHP', 'config', array('class' => 'JConfig')))) {
+		if (JFile::write($fname, $newConfig->toString('PHP', array('class' => 'JConfig')))) {
 			$msg = JText::_('The Configuration Details have been updated');
 		} else {
 			$msg = JText::_('ERRORCONFIGFILE');
@@ -384,12 +378,7 @@ class mtwMultipleModelSites extends JModel
 
 	function addExtensions($data){
 
-		//print_r($data);
-
-    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-		if (JFile::exists( $configFile )) {
-		  include( $configFile );
-		}
+		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 
 		$db =& JFactory::getDBO();
 
@@ -409,68 +398,60 @@ class mtwMultipleModelSites extends JModel
 		$dbconfig['prefix'] = "j" . $siteID . "_";
 
 		$newDB = JDatabase::getInstance( $dbconfig );
+		/*
+		  @@ TODO -> Check if jDatabase is created correctly
+
 		if ( $newDB->message ) {
 			//print_r($this->_externalDB);
 			$this->setError($newDB->message);
 			return false;
 		}
-     
+		*/    
+
 		// Setting new site path
-    $sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
+    $sitesPath = JPATH_SITE.DS.$params->get( 'path' );
     $newSitePath = $sitesPath .DS. $siteID;
 
-		// Activate legacy plugin
-		$query = "UPDATE #__plugins SET `published` = 1 WHERE `id` = 29 LIMIT 1";
-		$newDB->setQuery( $query );
-		if (!$newDB->query()) {
-			echo "Error activating legacy";
+		if (isset($data['select2'])) {
+			foreach ($data['select2'] as $id) {
+
+				$query = "SELECT e.*"
+				. " FROM #__mtwmultiple_extensions AS e"
+				. " WHERE e.enable = 1 AND id = " . $id;
+
+				//echo $query;
+				$db->setQuery( $query );
+				$rows = $db->loadAssoc();
+
+				//print_r($rows); echo "<br>";
+			
+				// Insert extension
+				$query = "INSERT INTO #__mtwmultiple_firstinstall"
+				. " (`filename`, `type`)"
+				. " VALUES ('". $rows['filename'] ."','". $rows["type"] ."')";
+				//echo $query;
+				$newDB->setQuery( $query );
+			
+				if(!$newDB->query()) {
+					echo $newDB->getError();
+				}
+
+		    $filepath = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'extensions'.DS.$rows['filename'];
+		    JFile::copy( $filepath, $newSitePath.DS.'tmp'.DS.$rows['filename']);
+		    //echo $newSitePath.DS.'tmp'.DS.$rows['filename'] . "<br>" . $filepath;
+
+				//print_r($newDB);
+				//echo "<br><br>";
+
+			}	
 		}
-       
-		//print_r($data);
-		
-		foreach ($data['select2'] as $id) {
 
-			$query = "SELECT e.*"
-			. " FROM #__mtwmultiple_extensions AS e"
-			. " WHERE e.enable = 1 AND id = " . $id;
-
-			//echo $query;
-			$db->setQuery( $query );
-			$rows = $db->loadAssoc();
-
-			//print_r($rows); echo "<br>";
-			
-			// Insert extension
-			$query = "INSERT INTO #__mtwmultiple_firstinstall"
-			. " (`filename`, `type`)"
-			. " VALUES ('". $rows['filename'] ."','". $rows["type"] ."')";
-			//echo $query;
-			$newDB->setQuery( $query );
-			
-			if(!$newDB->query()) {
-				echo $newDB->getError();
-			}
-
-      $filepath = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'extensions'.DS.$rows['filename'];
-      JFile::copy( $filepath, $newSitePath.DS.'tmp'.DS.$rows['filename']);
-      //echo $newSitePath.DS.'tmp'.DS.$rows['filename'] . "<br>" . $filepath;
-
-			//print_r($newDB);
-			//echo "<br><br>";
-
-		}	
-		
 		return true;
 	}
 
 	function addVirtual($data){
 
-		//print_r($data);
-
-    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-		if (JFile::exists( $configFile )) {
-			include( $configFile );
-		}
+ 		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 
 		// Getting site ID
 		$db =& JFactory::getDBO();
@@ -478,7 +459,7 @@ class mtwMultipleModelSites extends JModel
     $db->setQuery( $query );
     $siteID = $db->loadResult();
 		
-		$path = JPATH_ROOT.DS.$mtwCFG['path'].DS.$siteID;
+		$path = JPATH_ROOT.DS.$params->get( 'path' ).DS.$siteID;
 
 		$vh = JFile::read(JPATH_ADMINISTRATOR .DS.'components'.DS.'com_mtwmultiple'.DS.'mtwmultiple.virtualhost.conf');
 		
@@ -524,16 +505,11 @@ class mtwMultipleModelSites extends JModel
 	function removeSiteFiles($siteID){
 		jimport('joomla.filesystem.file');
 
-		$configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-		if (JFile::exists( $configFile )) {
-			include( $configFile );
-		}
+ 		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 
-		$sitesPath = JPATH_SITE.DS.$mtwCFG['path'];
+		$sitesPath = JPATH_SITE.DS.$params->get( 'path' );
 		$newSitePath = $sitesPath .DS. $siteID;
 		JFolder::delete($newSitePath);
 		return true;
 	}
-
 }
-?>
