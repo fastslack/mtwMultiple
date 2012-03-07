@@ -43,7 +43,6 @@ class mtwMultipleModelExtensions extends JModel
 		//$folder		= JRequest::getVar( 'folder', '', '', 'path' );
 		$format		= JRequest::getVar( 'format', 'html', '', 'cmd');
 		$return		= JRequest::getVar( 'return-url', null, 'post', 'base64' );
-echo $return;
 
 		$err		= null;
 
