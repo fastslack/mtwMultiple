@@ -3,9 +3,11 @@
 <config>
 	<fieldset	name="GLOBAL">
 		<field name="path" type="text" default="sites" label="Target Directory" description="" size="20" />
+<!--
 		<field name="virtual" type="list" default="0" label="Disable Virtual Hosts (Apache)" description="">
 			<option value="0">No</option>
 			<option value="1">Yes</option>
 		</field>
+-->
 	</fieldset>
 </config>

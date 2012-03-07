@@ -48,22 +48,17 @@
 			<folder>helpers</folder>
 			<folder>include</folder>
 			<folder>js</folder>
-			<folder>language</folder>
+			<folder>languages</folder>
 			<folder>models</folder>
 			<folder>plugin</folder>
 			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>views</folder>
 		</files>
+
+		<languages folder="admin">
+			<language tag="es-ES">languages/es-ES.com_mtwmultiple.ini</language>
+			<language tag="en-GB">languages/en-GB.com_mtwmultiple.ini</language>
+		</languages>
 	</administration>
-
-	<params>
-		<param type="spacer" default="&lt;b&gt;Global&lt;/b&gt;" />
-		<param name="path" type="text" default="sites" label="Target Directory" description="" size="20" />
-		<param name="virtual" type="list" default="0" label="Disable Virtual Hosts (Apache)" description="">
-			<option value="0">No</option>
-			<option value="1">Yes</option>
-		</param>
-	</params>
-
 </extension>
