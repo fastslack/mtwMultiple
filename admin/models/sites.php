@@ -71,7 +71,7 @@ class mtwMultipleModelSites extends JModelList
 		// Symlink the title to the installation directory 
 		symlink ( $siteID, $sitesPath.DS.$post['title'] );
 
-    /* index.php and index2.php */
+    /* index.php */
     JFile::copy( JPATH_SITE .DS. 'index.php', $newSitePath.DS.'index.php');
 
     /* Administrator Files */
@@ -301,7 +301,7 @@ class mtwMultipleModelSites extends JModelList
 		$config_array['host']		= JRequest::getVar('host', $config->getValue('config.host'), 'post', 'string');
 		$config_array['user']		= JRequest::getVar('user', $config->getValue('config.user'), 'post', 'string');
 		$config_array['db']		= JRequest::getVar('db', $config->getValue('config.db'), 'post', 'string');
-		$config_array['dbprefix']	= JRequest::getVar('dbprefix', 'j' . $siteID . '_', 'post', 'string');
+		$config_array['dbprefix']	= JRequest::getVar('dbprefix', 'mtw' . $siteID . '_', 'post', 'string');
 
 		// MAIL SETTINGS
 		$config_array['mailer']		= JRequest::getVar('mailer', 'mail', 'post', 'word');
@@ -388,7 +388,7 @@ class mtwMultipleModelSites extends JModelList
 		$dbconfig['user'] = $config->getValue('config.user');
 		$dbconfig['password'] = $config->getValue('config.password');
 		$dbconfig['database']= $config->getValue('config.db');
-		$dbconfig['prefix'] = "j" . $siteID . "_";
+		$dbconfig['prefix'] = "mtw" . $siteID . "_";
 
 		$newDB = JDatabase::getInstance( $dbconfig );
 		/*

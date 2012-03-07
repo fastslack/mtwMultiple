@@ -166,7 +166,7 @@ defined('_JEXEC') or die('Restricted access');
 		        <?php echo JText::_( "Prefix" ); ?>
 		    </td>
 		    <td>
-				<input type="text" name="c_prefix" value="<?php echo $this->c_db->c_prefix;?>" disabled />
+				<input type="text" name="c_prefix" value="<?php echo $this->c_db->c_prefix;?>" readonly />
 		    </td>
 		</tr>
 		</table>

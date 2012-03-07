@@ -138,7 +138,7 @@ class mtwMultipleViewSites extends JView {
 	  $c_db->set('c_username', $mainframe->getCfg('user'));
 	  $c_db->set('c_password', $mainframe->getCfg('password'));
 	  $c_db->set('c_database', $mainframe->getCfg('db'));
-	  $c_db->set('c_prefix', 'j'.$tblSites->getNewID().'_');
+	  $c_db->set('c_prefix', 'mtw'.$tblSites->getNewID().'_');
 
 	  $m_db = new JObject;
 	  $m_db->set('m_hostname', $mainframe->getCfg('host'));
