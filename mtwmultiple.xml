@@ -1,94 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install SYSTEM "http://dev.joomla.org/xml/1.5/component-install.dtd">
-<install type="component" version="1.5.0">
+<extension type="component" version="1.7.0" method="upgrade">
+ 
 	<name>mtwMultiple</name>
+	<!-- The following elements are optional and free of formatting constraints -->
 	<creationDate>2009-12-16</creationDate>
-  <author>Matias Aguirre</author>
-  <authorEmail>maguirre@matware.com.ar</authorEmail>
-  <authorUrl>http://www.matware.com.ar</authorUrl>
-  <copyright>Copyleft 2007 2008 2009</copyright>
-  <license>GNU</license>
-	<version>0.2.1</version>
-	<description/>
-    <install>
-	<sql>
+	<author>Matias Aguirre</author>
+	<authorEmail>maguirre@matware.com.ar</authorEmail>
+	<authorUrl>http://www.matware.com.ar</authorUrl>
+	<copyright>Copyleft 2006 - 2012</copyright>
+	<license>GNU/GPL</license>
+	<!--  The version string is recorded in the components table -->
+	<version>2.5.0</version>
+	<!-- The description is optional and defaults to the name -->
+	<description>mtwMultiple allows Joomla duplications</description>
+ 
+	<install>
+		<sql>
 		<file charset="utf8" driver="mysql">sql/install.sql</file>
-	</sql>
-    </install>
-<files folder="site"><filename>index.html</filename>
-</files>
-<administration>
-<menu>mtwMultiple</menu>
-<files folder="admin">
-<filename>admin.mtwmultiple.php</filename>
-<filename>controller.php</filename>
-<filename>controllers/config.php</filename>
-<filename>controllers/cpanel.php</filename>
-<filename>controllers/help.php</filename>
-<filename>controllers/index.html</filename>
-<filename>controllers/sites.php</filename>
-<filename>css/mtwmultiple.css</filename>
-<filename>extensions/index.html</filename>
-<filename>helpers/config.php</filename>
-<filename>helpers/index.html</filename>
-<filename>helpers/upload.php</filename>
-<filename>images/go.jpg</filename>
-<filename>images/index.html</filename>
-<filename>images/logo.png</filename>
-<filename>include/helper.php</filename>
-<filename>include/index.html</filename>
-<filename>index.html</filename>
-<filename>js/index.html</filename>
-<filename>js/jquery.js</filename>
-<filename>languages/de-DE.com_mtwmultiple.ini</filename>
-<filename>languages/es-ES.com_mtwmultiple.ini</filename>
-<filename>languages/fr-FR.com_mtwmultiple.ini</filename>
-<filename>languages/index.html</filename>
-<filename>languages/pl-PL.com_mtwmultiple.ini</filename>
-<filename>languages/pt-BR.com_mtwmultiple.ini</filename>
-<filename>models/config.php</filename>
-<filename>models/extensions.php</filename>
-<filename>models/global.php</filename>
-<filename>models/index.html</filename>
-<filename>models/sites.php</filename>
-<filename>models/virtual.php</filename>
-<filename>mtwmultiple_config.php.orig</filename>
-<filename>mtwmultiple.virtualhost.conf.orig</filename>
-<filename>plugin/index.html</filename>
-<filename>plugin/mtwFirstInstall.php</filename>
-<filename>plugin/mtwFirstInstall.xml</filename>
-<filename>sql/firstinstall.sql</filename>
-<filename>sql/index.html</filename>
-<filename>sql/install.sql</filename>
-<filename>sql/joomla.sql</filename>
-<filename>tables/index.html</filename>
-<filename>views/config/index.html</filename>
-<filename>views/config/tmpl/default.php</filename>
-<filename>views/config/tmpl/index.html</filename>
-<filename>views/config/view.html.php</filename>
-<filename>views/cpanel/index.html</filename>
-<filename>views/cpanel/tmpl/default.php</filename>
-<filename>views/cpanel/tmpl/index.html</filename>
-<filename>views/cpanel/view.html.php</filename>
-<filename>views/extensions/index.html</filename>
-<filename>views/extensions/tmpl/default.php</filename>
-<filename>views/extensions/tmpl/index.html</filename>
-<filename>views/extensions/view.html.php</filename>
-<filename>views/global/index.html</filename>
-<filename>views/global/tmpl/default.php</filename>
-<filename>views/global/tmpl/index.html</filename>
-<filename>views/global/view.html.php</filename>
-<filename>views/help/index.html</filename>
-<filename>views/help/tmpl/default.php</filename>
-<filename>views/help/tmpl/index.html</filename>
-<filename>views/help/view.html.php</filename>
-<filename>views/sites/index.html</filename>
-<filename>views/sites/tmpl/default.php</filename>
-<filename>views/sites/tmpl/form.php</filename>
-<filename>views/sites/tmpl/index.html</filename>
-<filename>views/sites/view.html.php</filename>
-<filename>views/virtual/index.html</filename>
-<filename>views/virtual/tmpl/default.php</filename>
-<filename>views/virtual/tmpl/index.html</filename>
-<filename>views/virtual/view.html.php</filename>
-</files></administration></install>
+		</sql>
+  </install>
+
+	<!-- Site Main File Copy Section -->
+	<!-- Note the folder attribute: This attribute describes the folder
+		to copy FROM in the package to install therefore files copied
+		in this section are copied from /site/ in the package -->
+	<files folder="site">
+		<filename>index.html</filename>
+	</files>
+ 
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu>mtwMultiple</menu>
+		<!-- Administration Main File Copy Section -->
+		<!-- Note the folder attribute: This attribute describes the folder
+			to copy FROM in the package to install therefore files copied
+			in this section are copied from /admin/ in the package -->
+		<files folder="admin">
+			<!-- Admin Main File Copy Section -->
+			<filename>index.html</filename>
+			<filename>admin.mtwmultiple.php</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<!-- SQL files section -->
+			<folder>controllers</folder>
+			<folder>css</folder>
+			<folder>extensions</folder>
+			<folder>helpers</folder>
+			<folder>include</folder>
+			<folder>js</folder>
+			<folder>languages</folder>
+			<folder>models</folder>
+			<folder>plugin</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+
+		<languages folder="admin">
+			<language tag="es-ES">languages/es-ES.com_mtwmultiple.ini</language>
+			<language tag="en-GB">languages/en-GB.com_mtwmultiple.ini</language>
+		</languages>
+	</administration>
+</extension>
