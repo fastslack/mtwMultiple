@@ -7,8 +7,6 @@
  * @url         http://www.matware.com.ar/
  * @license		GNU/GPL
  */
-
-
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
@@ -24,45 +22,20 @@ class mtwMultipleControllerSites extends mtwMultipleController
 
 		require_once(JPATH_COMPONENT.DS.'tables'.DS.'sites.php');	
 		require_once(JPATH_COMPONENT.DS.'tables'.DS.'extensions.php');
-
-		// Register Extra tasks
-		//$this->registerTask( 'add'  , 	'edit' );
 	}
 
-  function display() {
-  
-      JRequest::setVar( 'view', 'sites' );
+  function display() {  
+    JRequest::setVar( 'view', 'sites' );
 
-      //echo $task;
-
-      parent::display();
+    parent::display();
   }
 
   function add() {
-  
-      JRequest::setVar( 'view', 'sites' );
-      JRequest::setVar( 'layout', 'form'  );
+    JRequest::setVar( 'view', 'sites' );
+    JRequest::setVar( 'layout', 'form'  );
 
-      parent::display();
+    parent::display();
   }
-
-	function apply() {
-
-		$model = $this->getModel('config');
-
-		$data = JRequest::get( 'post' );
-
-		if ($model->saveConfig($data)) {
-			$msg = JText::_( 'Configuration Applied!' );
-		} else {
-			$msg = JText::_( 'Error Applying Configuration' );
-		}
-
-		JRequest::setVar( 'view', 'config' );
-
-		$link = 'index.php?option=com_mtwmultiple&controller=config';
-		$this->setRedirect($link, $msg);
-	}
 
 	/**
 	 * save a record (and redirect to main page)
@@ -129,31 +102,30 @@ class mtwMultipleControllerSites extends mtwMultipleController
 	 */
   function remove()
   {
-      // Check for request forgeries
-      JRequest::checkToken() or jexit( 'Invalid Token' );
+    // Check for request forgeries
+    JRequest::checkToken() or jexit( 'Invalid Token' );
 
-      //$this->setRedirect( 'index.php?option=com_mtwmultiple&controller=sites' );
+    $this->setRedirect( 'index.php?option=com_mtwmultiple&controller=sites' );
 
-      // Initialize variables
-      $db     =& JFactory::getDBO();
-      $hid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
-      $n      = count( $hid );
+    // Initialize variables
+    $db     =& JFactory::getDBO();
+    $hid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
+    $n      = count( $hid );
 
-			$model = $this->getModel('sites');
-			for($count = 0; $count < $n; $count++) {
-				$element = $hid[$count];
-				$model->removeSiteDB($hid[$count]);
-				$model->removeSiteFiles($hid[$count]);
-				$query = 'DELETE FROM #__mtwmultiple_sites'
-					. ' WHERE id = ' . implode( ' OR id = ', $hid );
+		$model = $this->getModel('sites');
+		for($count = 0; $count < $n; $count++) {
+			$element = $hid[$count];
+			$model->removeSiteDB($hid[$count]);
+			$model->removeSiteFiles($hid[$count]);
+			$query = 'DELETE FROM #__mtwmultiple_sites'
+				. ' WHERE id = ' . implode( ' OR id = ', $hid );
 
-				$db->setQuery( $query );
-				if (!$db->query()) {
-					JError::raiseWarning( 500, $db->getError() );
-				}
+			$db->setQuery( $query );
+			if (!$db->query()) {
+				JError::raiseWarning( 500, $db->getError() );
 			}
+		}
 
-      $this->setMessage( JText::sprintf( 'Items removed', $n ) );
+    $this->setMessage( JText::sprintf( 'Items removed', $n ) );
   }
 }
-?>
