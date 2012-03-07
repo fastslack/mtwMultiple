@@ -280,7 +280,7 @@ class mtwMultipleModelSites extends JModelList
 		$config_array['live_site'] 			= rtrim(JRequest::getVar('live_site','','post','string'), '/\\');
 
 		// LOCALE SETTINGS
-		$config_array['offset']				= JRequest::getVar('offset', 'UTC', 'post', 'float');
+		$config_array['offset']				= JRequest::getVar('offset', 'UTC', 'post', 'string');
 
 		// CACHE SETTINGS
 		$config_array['caching']			= JRequest::getVar('caching', 0, 'post', 'int');
