@@ -42,6 +42,9 @@ JHTML::_('behavior.tooltip');
 					<th width="20">
 						&nbsp;
 					</th>
+					<th width="20">
+						&nbsp;
+					</th>
 					<th nowrap="20%" class="title">
 						<?php echo JHTML::_('grid.sort',  'Name', 's.name', @$lists['order_Dir'], @$lists['order'] ); ?>
 					</th>
@@ -58,7 +61,7 @@ JHTML::_('behavior.tooltip');
 			</thead>
 			<tfoot>
 				<tr>
-					<td colspan="7">
+					<td colspan="8">
 						<?php echo $this->pageNav->getListFooter(); ?>
 					</td>
 				</tr>
@@ -72,7 +75,8 @@ JHTML::_('behavior.tooltip');
 				$row = &$rows[$i];
 
 				$checked		= JHTML::_('grid.checkedout',   $row, $i );
-				$url = JURI::root() . $this->params->get('path') .DS. $row->id;
+				$url_site = JURI::root() . $this->params->get('path') .DS. $row->id;
+				$url_admin = JURI::root() . $this->params->get('path') .DS. $row->id .DS. 'administrator';
 			?>
 				<tr class="<?php echo "row$k"; ?>">
 					<td align="center">
@@ -82,7 +86,10 @@ JHTML::_('behavior.tooltip');
 						<?php echo $checked; ?>
 					</td>
 					<td align="center">
-						<a href="<?php echo $url; ?>" target="_blank"><img src="components/com_mtwmultiple/images/go.jpg"></a>
+						<small><a href="<?php echo $url_site; ?>" target="_blank">[SITE]</a></small>
+					</td>
+					<td align="center">
+						<small><a href="<?php echo $url_admin; ?>" target="_blank">[ADMIN]</a></small>
 					</td>
 					<td>
 						<?php echo $row->name;?>

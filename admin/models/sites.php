@@ -11,7 +11,9 @@
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die();
 
-class mtwMultipleModelSites extends JModel
+jimport('joomla.application.component.modellist');
+
+class mtwMultipleModelSites extends JModelList
 {
 	function __construct()
 	{
@@ -64,12 +66,13 @@ class mtwMultipleModelSites extends JModel
       JFolder::create( $sitesPath );
     }
 
+		// Create the directory of the installation
     JFolder::create( $newSitePath);
+		// Symlink the title to the installation directory 
 		symlink ( $siteID, $sitesPath.DS.$post['title'] );
 
     /* index.php and index2.php */
     JFile::copy( JPATH_SITE .DS. 'index.php', $newSitePath.DS.'index.php');
-    //JFile::copy( JPATH_SITE .DS. 'index2.php', $newSitePath.DS.'index2.php');
 
     /* Administrator Files */
     JFolder::create( $newSitePath.DS.'administrator');
@@ -87,29 +90,23 @@ class mtwMultipleModelSites extends JModel
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_contact', $newSitePath .DS. 'administrator/components/com_contact');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_content', $newSitePath .DS. 'administrator/components/com_content');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_cpanel', $newSitePath .DS. 'administrator/components/com_cpanel');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_frontpage', $newSitePath .DS. 'administrator/components/com_frontpage');
+    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_finder', $newSitePath .DS. 'administrator/components/com_finder');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_installer', $newSitePath .DS. 'administrator/components/com_installer');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_languages', $newSitePath .DS. 'administrator/components/com_languages');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_login', $newSitePath .DS. 'administrator/components/com_login');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_massmail', $newSitePath .DS. 'administrator/components/com_massmail');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_media', $newSitePath .DS. 'administrator/components/com_media');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_menus', $newSitePath .DS. 'administrator/components/com_menus');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_messages', $newSitePath .DS. 'administrator/components/com_messages');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_modules', $newSitePath .DS. 'administrator/components/com_modules');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_newsfeeds', $newSitePath .DS. 'administrator/components/com_newsfeeds');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_plugins', $newSitePath .DS. 'administrator/components/com_plugins');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_poll', $newSitePath .DS. 'administrator/components/com_poll');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_search', $newSitePath .DS. 'administrator/components/com_search');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_sections', $newSitePath .DS. 'administrator/components/com_sections');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_templates', $newSitePath .DS. 'administrator/components/com_templates');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_trash', $newSitePath .DS. 'administrator/components/com_trash');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_users', $newSitePath .DS. 'administrator/components/com_users');
     symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_weblinks', $newSitePath .DS. 'administrator/components/com_weblinks');
     symlink ( JPATH_ADMINISTRATOR .DS. 'help', $newSitePath .DS. 'administrator/help');
     symlink ( JPATH_ADMINISTRATOR .DS. 'images', $newSitePath .DS. 'administrator/images');
     symlink ( JPATH_ADMINISTRATOR .DS. 'includes', $newSitePath .DS. 'administrator/includes');
-    //JFile::copy( JPATH_ADMINISTRATOR .DS. 'index2.php', $newSitePath.DS.'administrator/index2.php');
-    //JFile::copy( JPATH_ADMINISTRATOR .DS. 'index3.php', $newSitePath.DS.'administrator/index3.php');
     JFile::copy( JPATH_ADMINISTRATOR .DS. 'index.php', $newSitePath.DS.'administrator/index.php');
     JFolder::copy( JPATH_ADMINISTRATOR .DS. 'language/', $newSitePath.DS.'administrator/language/');
     //symlink ( JPATH_ADMINISTRATOR .DS. 'language/index.html', $newSitePath .DS. 'administrator/language/index.html');
@@ -154,7 +151,6 @@ class mtwMultipleModelSites extends JModel
     symlink ( JPATH_SITE .DS. 'modules/mod_mainmenu', $newSitePath .DS. 'modules/mod_mainmenu');
     symlink ( JPATH_SITE .DS. 'modules/mod_mostread', $newSitePath .DS. 'modules/mod_mostread');
     symlink ( JPATH_SITE .DS. 'modules/mod_newsflash', $newSitePath .DS. 'modules/mod_newsflash');
-    symlink ( JPATH_SITE .DS. 'modules/mod_poll', $newSitePath .DS. 'modules/mod_poll');
     symlink ( JPATH_SITE .DS. 'modules/mod_random_image', $newSitePath .DS. 'modules/mod_random_image');
     symlink ( JPATH_SITE .DS. 'modules/mod_related_items', $newSitePath .DS. 'modules/mod_related_items');
     symlink ( JPATH_SITE .DS. 'modules/mod_search', $newSitePath .DS. 'modules/mod_search');
@@ -221,18 +217,15 @@ class mtwMultipleModelSites extends JModel
     	return false;
     }
 
-		$vars['DBtype']	= $dbtype;
-		$vars['DBhostname']	= $host;
-		$vars['DBuserName']	= $user;
-		$vars['DBpassword']	= $password;
-		$vars['DBname']	= $dbname;
-		$vars['DBPrefix']	= $dbprefix;
-		$vars['adminPassword'] = $post['password'];
-		$vars['adminEmail'] = $post['email'];
+		$rootVars = new stdClass();
+		$rootVars->admin_password = $post['password'];
+		$rootVars->admin_user = "admin";
+		$rootVars->admin_email = $post['email'];
+		$rootVars->db_prefix = $dbprefix;
 
-    if (!JInstallationHelper::createAdminUser($vars) ) {
+    if (!$this->_createRootUser($rootVars) ) {
     	return false;
-    }    
+    }   
 
     return true;        
   }
@@ -287,7 +280,7 @@ class mtwMultipleModelSites extends JModel
 		$config_array['live_site'] 			= rtrim(JRequest::getVar('live_site','','post','string'), '/\\');
 
 		// LOCALE SETTINGS
-		$config_array['offset']				= JRequest::getVar('offset', 0, 'post', 'float');
+		$config_array['offset']				= JRequest::getVar('offset', 'UTC', 'post', 'float');
 
 		// CACHE SETTINGS
 		$config_array['caching']			= JRequest::getVar('caching', 0, 'post', 'int');
@@ -422,8 +415,6 @@ class mtwMultipleModelSites extends JModel
 				//echo $query;
 				$db->setQuery( $query );
 				$rows = $db->loadAssoc();
-
-				//print_r($rows); echo "<br>";
 			
 				// Insert extension
 				$query = "INSERT INTO #__mtwmultiple_firstinstall"
@@ -438,11 +429,6 @@ class mtwMultipleModelSites extends JModel
 
 		    $filepath = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'extensions'.DS.$rows['filename'];
 		    JFile::copy( $filepath, $newSitePath.DS.'tmp'.DS.$rows['filename']);
-		    //echo $newSitePath.DS.'tmp'.DS.$rows['filename'] . "<br>" . $filepath;
-
-				//print_r($newDB);
-				//echo "<br><br>";
-
 			}	
 		}
 
@@ -467,7 +453,7 @@ class mtwMultipleModelSites extends JModel
 		$vh = str_replace("{DOCROOT}", $path, $vh);
 		$vh = str_replace("{SERVER}", $data['domain'], $vh);
 
-		$vhfile = JPATH_ROOT.DS.$mtwCFG['virtual'].DS."{$siteID}-{$data['domain']}";
+		$vhfile = JPATH_ROOT.DS.$params->get( 'virtual' ).DS."{$siteID}-{$data['domain']}";
 
 		//echo $vhfile."<br>";
 
@@ -502,14 +488,142 @@ class mtwMultipleModelSites extends JModel
 		}
 	}
 
-	function removeSiteFiles($siteID){
+	function removeSiteFiles($id){
 		jimport('joomla.filesystem.file');
 
- 		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
+		$site = $this->getSite($id);
 
+ 		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 		$sitesPath = JPATH_SITE.DS.$params->get( 'path' );
-		$newSitePath = $sitesPath .DS. $siteID;
-		JFolder::delete($newSitePath);
+
+		// Remove the directory
+		JFolder::delete($sitesPath .DS. $id);
+		// Remove the symlink
+		JFile::delete($sitesPath .DS. $site->title);
+
 		return true;
 	}
-}
+
+	/**
+   * @param  int     The id of the site
+	 * @return object  Return an object with the data of the site
+	 * @since	2.5
+	 */
+	function getSite($id) {
+		// Initiate the db
+		$db =& JFactory::getDBO();
+
+    $query = "SELECT * FROM #__mtwmultiple_sites WHERE id = '{$id}' LIMIT 1";
+    $db->setQuery( $query );
+    return $db->loadObject();
+	}
+
+	/**
+   * @param  int     The id of the site
+	 * @return object  Return an object with the data of the site
+	 * @since	2.5
+	 */
+	function _createRootUser($options)
+	{
+		// Get a database object.
+		//$db = JInstallationHelperDatabase::getDBO($options->db_type, $options->db_host, $options->db_user, $options->db_pass, $options->db_name, $options->db_prefix);
+		$db =& JFactory::getDBO();
+
+		// Check for errors.
+		if ($db instanceof Exception) {
+			$this->setError(JText::sprintf('INSTL_ERROR_CONNECT_DB', (string)$db));
+			return false;
+		}
+
+		// Check for database errors.
+		if ($err = $db->getErrorNum()) {
+			$this->setError(JText::sprintf('INSTL_ERROR_CONNECT_DB', $db->getErrorNum()));
+			return false;
+		}
+
+		// Create random salt/password for the admin user
+		$salt = JUserHelper::genRandomPassword(32);
+		$crypt = JUserHelper::getCryptedPassword($options->admin_password, $salt);
+		$cryptpass = $crypt.':'.$salt;
+
+		// create the admin user
+		date_default_timezone_set('UTC');
+		$installdate	= date('Y-m-d H:i:s');
+		$nullDate		= $db->getNullDate();
+		//sqlsrv change
+		$query = $db->getQuery(true);
+		$query->select('id');
+		$query->from($options->db_prefix.'users');
+		$query->where('id = 42');
+
+		$db->setQuery($query);
+
+		if($db->loadResult())
+		{
+		  $query = $db->getQuery(true);
+		  $query->update($options->db_prefix.'users');
+		  $query->set('name = '.$db->quote('Super User'));
+		  $query->set('username = '.$db->quote($options->admin_user));
+		  $query->set('email = '.$db->quote($options->admin_email));
+		  $query->set('password = '.$db->quote($cryptpass));
+		  $query->set('usertype = '.$db->quote('deprecated'));
+		  $query->set('block = 0');
+		  $query->set('sendEmail = 1');
+		  $query->set('registerDate = '.$db->quote($installdate));
+		  $query->set('lastvisitDate = '.$db->quote($nullDate));
+		  $query->set('activation = '.$db->quote('0'));
+		  $query->set('params = '.$db->quote(''));
+		  $query->where('id = 42');
+		} else {
+		 $query = $db->getQuery(true);
+		  $columns =  array($db->quoteName('id'), $db->quoteName('name'), $db->quoteName('username'),
+							$db->quoteName('email'), $db->quoteName('password'),
+							$db->quoteName('usertype'),
+							$db->quoteName('block'),
+							$db->quoteName('sendEmail'), $db->quoteName('registerDate'),
+							$db->quoteName('lastvisitDate'), $db->quoteName('activation'), $db->quoteName('params'));
+		  $query->insert($options->db_prefix.'users', true);
+		  $query->columns($columns);
+
+		  $query->values('42'. ', '. $db->quote('Super User'). ', '. $db->quote($options->admin_user). ', '.
+					$db->quote($options->admin_email). ', '. $db->quote($cryptpass). ', '. $db->quote('deprecated').', '.$db->quote('0').', '.$db->quote('1').', '.
+					$db->quote($installdate).', '.$db->quote($nullDate).', '.$db->quote('0').', '.$db->quote(''));
+		}
+		$db->setQuery($query);
+		if (!$db->query()) {
+			JError::raiseWarning( 500, $db->getErrorMsg() );
+			return false;
+		}
+
+		// Map the super admin to the Super Admin Group
+		$query = $db->getQuery(true);
+		$query->select('user_id');
+		$query->from($options->db_prefix.'user_usergroup_map');
+		$query->where('user_id = 42');
+
+		$db->setQuery($query);
+
+	  if($db->loadResult())
+	  {
+	    $query = $db->getQuery(true);
+	    $query->update($options->db_prefix.'user_usergroup_map');
+	    $query->set('user_id = 42');
+	    $query->set('group_id = 8');
+	  } else {
+	    $query = $db->getQuery(true);
+	    $query->insert($options->db_prefix.'user_usergroup_map', false);
+		$query->columns(array($db->quoteName('user_id'), $db->quoteName('group_id')));
+		$query->values('42'. ', '. '8');
+
+	  }
+
+		$db->setQuery($query);
+		if (!$db->query()) {
+			JError::raiseWarning( 500, $db->getErrorMsg() );
+			return false;
+		}
+
+		return true;
+	}
+
+} // end class

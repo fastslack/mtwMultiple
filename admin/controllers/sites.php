@@ -93,6 +93,7 @@ class mtwMultipleControllerSites extends mtwMultipleController
 			$msg = JText::_( 'Error Creating Config File' );
 		}
 
+		// @@ TODO -> Check if extensions exists
 		if ($model->addExtensions($data)) {
 			$msg = JText::_( 'Joomla Site Added!' );
 		} else {
@@ -122,34 +123,37 @@ class mtwMultipleControllerSites extends mtwMultipleController
 		$this->setRedirect( 'index.php?option=com_mtwmultiple', $msg );
 	}
 
-    function remove()
-    {
-        // Check for request forgeries
-        JRequest::checkToken() or jexit( 'Invalid Token' );
+	/**
+	 * remove delete a record
+	 * @return void
+	 */
+  function remove()
+  {
+      // Check for request forgeries
+      JRequest::checkToken() or jexit( 'Invalid Token' );
 
-        $this->setRedirect( 'index.php?option=com_mtwmultiple&controller=sites' );
+      //$this->setRedirect( 'index.php?option=com_mtwmultiple&controller=sites' );
 
-        // Initialize variables
-        $db     =& JFactory::getDBO();
-        $hid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
-        $n      = count( $hid );
+      // Initialize variables
+      $db     =& JFactory::getDBO();
+      $hid    = JRequest::getVar( 'cid', array(), 'post', 'array' );
+      $n      = count( $hid );
 
-        $model = $this->getModel('sites');
-        for($count = 0; $count < $n; $count++) {
+			$model = $this->getModel('sites');
+			for($count = 0; $count < $n; $count++) {
+				$element = $hid[$count];
+				$model->removeSiteDB($hid[$count]);
+				$model->removeSiteFiles($hid[$count]);
+				$query = 'DELETE FROM #__mtwmultiple_sites'
+					. ' WHERE id = ' . implode( ' OR id = ', $hid );
 
-        	$element = $hid[$count];
-			$model->removeSiteDB($hid[$count]);
-			$model->removeSiteFiles($hid[$count]);
-        	$query = 'DELETE FROM #__mtwmultiple_sites'
-            . ' WHERE id = ' . implode( ' OR id = ', $hid );
+				$db->setQuery( $query );
+				if (!$db->query()) {
+					JError::raiseWarning( 500, $db->getError() );
+				}
+			}
 
-            $db->setQuery( $query );
-            if (!$db->query()) {
-                JError::raiseWarning( 500, $db->getError() );
-            }
-        }
-
-        $this->setMessage( JText::sprintf( 'Items removed', $n ) );
-    }
+      $this->setMessage( JText::sprintf( 'Items removed', $n ) );
+  }
 }
 ?>
