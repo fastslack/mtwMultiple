@@ -25,25 +25,25 @@ defined('_JEXEC') or die('Restricted access');
 	</tr>
 	<tr>
 		<td colspan="2" class="row1">
-            <form action="index.php" name="adminForm" id="uploadForm" method="post" enctype="multipart/form-data">
-                <fieldset>
-                    <legend><?php echo JText::_( 'Upload File' ); ?> [ <?php echo JText::_( 'Max' ); ?>&nbsp; 10M ]</legend>
-                    <fieldset class="actions">
-                        <input type="file" id="file-upload" name="Filedata" />
-                        <input type="submit" id="file-upload-submit" value="<?php echo JText::_('Start Upload'); ?>"/>
-                        <span id="upload-clear"></span>
-                    </fieldset>
-                    <ul class="upload-queue" id="upload-queue">
-                        <li style="display: none" />
-                    </ul>
-                </fieldset>
+      <form action="index.php?tmpl=component" name="adminForm" id="uploadForm" method="post" enctype="multipart/form-data">
+			<fieldset>
+				<legend><?php echo JText::_( 'Upload File' ); ?> [ <?php echo JText::_( 'Max' ); ?>&nbsp; 10M ]</legend>
+				<fieldset class="actions">
+					<input type="file" id="file-upload" name="Filedata" />
+					<input type="submit" id="file-upload-submit" value="<?php echo JText::_('Start Upload'); ?>"/>
+					<span id="upload-clear"></span>
+				</fieldset>
+				<ul class="upload-queue" id="upload-queue">
+					<li style="display: none" />
+				</ul>
+			</fieldset>
 			<input type="hidden" name="option" value="com_mtwmultiple" />
 			<input type="hidden" name="task" value="upload" />
 			<input type="hidden" name="boxchecked" value="0" />
-			<input type="hidden" name="controller" value="config" />
-			<input type="hidden" name="return-url" value="<?php echo base64_encode('index.php?option=com_mtwmultiple&amp;controller=config'); ?>" />
+			<input type="hidden" name="controller" value="extensions" />
+			<input type="hidden" name="return-url" value="<?php echo base64_encode('index.php?option=com_mtwmultiple&amp;controller=extensions&amp;tmpl=component'); ?>" />
 			<input type="hidden" name="type" value="extensions" />
-            </form>
+    </form>
 		</td>
     </tr>
 	</table>

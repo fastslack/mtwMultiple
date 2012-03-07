@@ -28,15 +28,15 @@ class mtwMultipleViewSites extends JView {
 		// Load the parameters.
 		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 
-
 		JToolBarHelper::title(  JText::_( 'mtwMultiple Sites' ), 'plugin.png' );
 		JToolBarHelper::back();
 		JToolBarHelper::deleteList();
-		//JToolBarHelper::editListX();
 		JToolBarHelper::addNewX();
-		//JToolBarHelper::cancel();
-		//JToolBarHelper::save();
 		JToolBarHelper::spacer();
+		// Add an upload button and view a popup screen width 550 and height 400
+		$alt = "Manage Extensions";
+		$bar=& JToolBar::getInstance( 'toolbar' );
+		$bar->appendButton( 'Popup', 'upload', $alt, 'index.php?option=com_mtwmultiple&controller=extensions&tmpl=component', 850, 500 );
 		JToolBarHelper::preferences('com_mtwmultiple');
 		JToolBarHelper::spacer();
 
@@ -60,7 +60,8 @@ class mtwMultipleViewSites extends JView {
     }
 
 		$where		= count( $where ) ? ' WHERE ' . implode( ' AND ', $where ) : '';
-		$orderby	= ' ORDER BY '. $filter_order .' '. $filter_order_Dir;
+		//$orderby	= ' ORDER BY '. $filter_order .' '. $filter_order_Dir;
+		$orderby	= ' ORDER BY id ASC';
 
 		// get the total number of records
 		$query = 'SELECT COUNT(*)'
@@ -78,7 +79,6 @@ class mtwMultipleViewSites extends JView {
 		. ' LEFT JOIN #__users AS u ON u.id = s.created_by'
 		. $where
 		. $orderby;
-
 		//echo $query;
 
 		$db->setQuery( $query, $pageNav->limitstart, $pageNav->limit );

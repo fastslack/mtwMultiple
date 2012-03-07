@@ -14,22 +14,17 @@ defined('_JEXEC') or die('Restricted access');
 // Require the base controller
 require_once( JPATH_COMPONENT.DS.'controller.php' );
 
-//echo JRequest::getVar('controller');
-//echo " - ";
-//echo JRequest::getVar('task');
-//echo "<br>";
-
 // Require specific controller if requested
 $controller = JRequest::getVar('controller', 'sites');
 
 if($controller) {
-    $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
-    //echo $path;
-    if (file_exists($path)) {
-        require_once $path;
-    } else {
-        $controller = 'Cpanel';
-    }
+  $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
+  //echo $path;
+  if (file_exists($path)) {
+    require_once $path;
+  } else {
+    $controller = 'Cpanel';
+  }
 }
 
 // Create the controller
@@ -41,5 +36,3 @@ $controller->execute( JRequest::getVar('task'));
 
 // Redirect if set by the controller
 $controller->redirect();
-
-?>

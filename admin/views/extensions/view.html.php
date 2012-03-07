@@ -17,21 +17,19 @@ jimport('joomla.filesystem.file');
 
 class mtwMultipleViewExtensions extends JView
 {
-
 	function display($tpl = null) {
-		global $mainframe;
+		
+		$mainframe = JFactory::getApplication();
 		
 		JToolBarHelper::title(   JText::_( 'Extensions' ), 'config.png' );
-        JToolBarHelper::back();
+    JToolBarHelper::back();
 		//JToolBarHelper::apply();
 		//JToolBarHelper::save();
 		JToolBarHelper::cancel();
 		JToolBarHelper::spacer();
 
-		$configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
-		if (JFile::exists( $configFile )) {
-			include( $configFile );
-		}
+		// Load the parameters.
+		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
 
 		$db =& JFactory::getDBO();
 
@@ -51,16 +49,15 @@ class mtwMultipleViewExtensions extends JView
 		$query = "SELECT e.*"
 		. " FROM #__mtwmultiple_extensions AS e"
 		. " ORDER BY e.type, e.name ASC";
+		//echo $query;
 
-        //echo $query;
-
-	    $db->setQuery( $query, $pageNav->limitstart, $pageNav->limit );
+		$db->setQuery( $query, $pageNav->limitstart, $pageNav->limit );
 		$rows = $db->loadObjectList();
-        //print_r($db->getError());
+		//print_r($db->getError());
 
-        $this->assignRef('rows', $rows);
-        $this->assignRef('lists', $lists);
-        $this->assignRef('pageNav', $pageNav);
+    $this->assignRef('rows', $rows);
+    $this->assignRef('lists', $lists);
+    $this->assignRef('pageNav', $pageNav);
 
 		parent::display($tpl);
 	}

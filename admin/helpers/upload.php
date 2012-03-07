@@ -73,14 +73,14 @@ class UploadHelper
 			$err = 'WARNFILETYPE';
 			return false;
 		}
-*/
+
 		$maxSize = (int) $params->get( 'upload_maxsize', 0 );
 		if ($maxSize > 0 && (int) $file['size'] > $maxSize)
 		{
 			$err = 'WARNFILETOOLARGE';
 			return false;
 		}
-
+*/
 		$user = JFactory::getUser();
 		$imginfo = null;
 		if($params->get('restrict_uploads',1) ) {

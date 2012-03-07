@@ -31,7 +31,8 @@ class mtwMultipleModelExtensions extends JModel
 	 */
 	function upload()
 	{
-		global $mainframe;
+		
+		$mainframe = JFactory::getApplication();
 
 		require_once('components/com_mtwmultiple'.DS.'helpers'.DS.'upload.php' );		
 
@@ -42,6 +43,8 @@ class mtwMultipleModelExtensions extends JModel
 		//$folder		= JRequest::getVar( 'folder', '', '', 'path' );
 		$format		= JRequest::getVar( 'format', 'html', '', 'cmd');
 		$return		= JRequest::getVar( 'return-url', null, 'post', 'base64' );
+echo $return;
+
 		$err		= null;
 
 		// Set FTP credentials, if given
@@ -114,7 +117,7 @@ class mtwMultipleModelExtensions extends JModel
 					//$mainframe->enqueueMessage(JText::_('Upload complete'));
 					// REDIRECT
 					//if ($return) {
-						//$mainframe->redirect(base64_decode($return));
+					//	$mainframe->redirect(base64_decode($return));
 					//}
 					$this->install($filepath);
 					return true;
