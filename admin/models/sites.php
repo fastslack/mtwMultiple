@@ -411,7 +411,6 @@ class mtwMultipleModelSites extends JModelList
 				$query = "SELECT e.*"
 				. " FROM #__mtwmultiple_extensions AS e"
 				. " WHERE e.enable = 1 AND id = " . $id;
-
 				//echo $query;
 				$db->setQuery( $query );
 				$rows = $db->loadAssoc();
@@ -420,7 +419,7 @@ class mtwMultipleModelSites extends JModelList
 				$query = "INSERT INTO #__mtwmultiple_firstinstall"
 				. " (`filename`, `type`)"
 				. " VALUES ('". $rows['filename'] ."','". $rows["type"] ."')";
-				//echo $query;
+				//echo $query."<br>--<br>";
 				$newDB->setQuery( $query );
 			
 				if(!$newDB->query()) {
