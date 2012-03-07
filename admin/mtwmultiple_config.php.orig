@@ -1,4 +1,0 @@
-<?
-$mtwCFG['path'] = "sites";
-$mtwCFG['virtual'] = "vhosts";
-?>
