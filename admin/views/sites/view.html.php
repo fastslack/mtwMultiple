@@ -31,7 +31,7 @@ class mtwMultipleViewSites extends JView {
 		JToolBarHelper::title(  JText::_( 'mtwMultiple Sites' ), 'plugin.png' );
 		JToolBarHelper::back();
 		JToolBarHelper::deleteList();
-		JToolBarHelper::addNewX();
+		JToolBarHelper :: custom( 'add', 'new.png', 'new.png', 'Add Site', false, false );
 		JToolBarHelper::spacer();
 		// Add an upload button and view a popup screen width 550 and height 400
 		$alt = "Manage Extensions";
@@ -147,7 +147,7 @@ class mtwMultipleViewSites extends JView {
 	  $m_db->set('m_database', $mainframe->getCfg('db'));
 	  $m_db->set('m_prefix', $mainframe->getCfg('dbprefix'));
 
-		$lists['vh'] = JHTML::_('select.booleanlist', 'vh', '', 0);
+		$lists['vh'] = JHTML::_('select.booleanlist', 'vh', 'disabled', 0);
 
 		$this->assignRef('options', $options);
 		$this->assignRef('lists', $lists);

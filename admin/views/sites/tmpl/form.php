@@ -126,55 +126,6 @@ defined('_JEXEC') or die('Restricted access');
 		<table class="adminlist">
 			<tr>
 				<td colspan="2">
-					<h3><?php echo JText::_( "Master Database" ); ?></h3>
-				</td>
-			</tr>
-		<tr>
-			<td align="right" width="40%">
-				<?php echo JText::_( "Hostname" ); ?>
-			</td>
-			<td>
-				<input type="text" name="m_hostname" value="<?php echo $this->m_db->m_hostname;?>" />
-			</td>
-		    </tr>
-		<tr>
-			<td align="right">
-				<?php echo JText::_( "Database" ); ?>
-			</td>
-			<td>
-				<input type="text" name="m_database" value="<?php echo $this->m_db->m_database;?>" />
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-				<?php echo JText::_( "Username" ); ?>
-			</td>
-			<td>
-				<input type="text" name="m_username" value="<?php echo $this->m_db->m_username;?>" />
-		</td>
-    </tr>
-		<tr>
-		    <td align="right">
-		        <?php echo JText::_( "Password" ); ?>
-		    </td>
-		    <td>
-				<input type="password" name="m_password" value="<?php echo $this->m_db->m_password;?>" />
-		    </td>
-		</tr>
-
-		<tr>
-		    <td align="right">
-		        <?php echo JText::_( "Prefix" ); ?>
-		    </td>
-		    <td>
-				<input type="text" name="m_prefix" value="<?php echo $this->m_db->m_prefix;?>" />
-		    </td>
-		</tr>
-		</table>
-
-		<table class="adminlist">
-			<tr>
-				<td colspan="2">
 					<h3><?php echo JText::_( "Child Database" ); ?></h3>
 				</td>
 			</tr>
@@ -215,7 +166,7 @@ defined('_JEXEC') or die('Restricted access');
 		        <?php echo JText::_( "Prefix" ); ?>
 		    </td>
 		    <td>
-				<input type="text" name="c_prefix" value="<?php echo $this->c_db->c_prefix;?>" />
+				<input type="text" name="c_prefix" value="<?php echo $this->c_db->c_prefix;?>" disabled />
 		    </td>
 		</tr>
 		</table>
@@ -236,13 +187,6 @@ defined('_JEXEC') or die('Restricted access');
 		      <td>        
 	          <?php
               echo $this->lists['vh'];
-/*
-              if ($this->ext['aj'] != "com_sef") {
-                  echo "<div style=\"float: right; color: red; \">" . JText::_( "Artio JoomSEF Uninstalled" ) . "</div>";
-              }else{
-                  echo "<div style=\"float: right; color: blue; \">" . JText::_( "Artio JoomSEF Installed" ) . "</div>";
-              }
-*/
 	          ?>
 		      </td>
 		  </tr>
@@ -251,7 +195,7 @@ defined('_JEXEC') or die('Restricted access');
 	          <?php echo JText::_( "Domain name" ); ?>
 		      </td>   
 		      <td>        
-	          <input type="domain" name="domain" />
+	          <input type="domain" name="domain" disabled />
 		      </td>
 		  </tr>
 		</table>
