@@ -56,14 +56,17 @@ defined('_JEXEC') or die('Restricted access');
     border: 1px solid #aaa;  
     text-decoration: none;  
     background-color: #fafafa;  
-    color: #123456;  
-    margin: 2px;  
+    color: dark-grey;  
+    margin: 2px;
+		padding: 10px;
+		font-size: 15pt;
     clear:both;  
    }  
 
    select {  
     width: 100%;  
-    height: 160px;  
+    height: 160px;
+		font-size: 11pt;
    }  
   </style>  
     
@@ -173,7 +176,27 @@ defined('_JEXEC') or die('Restricted access');
 
 	</td>
 	<td width="50%" valign="top">
-
+		<table class="adminlist">
+		<tr>
+			<td colspan="2">
+				<h3><?php echo JText::_( "Add extensions to new site" ); ?></h3> </td>
+		</tr>
+		<tr>
+			<td align="right" width="50%">
+			
+		    <select multiple id="select1" name="select1">  
+				<? echo $this->options; ?>
+		    </select>  
+		    <a href="#" id="add" class="sel">add &gt;&gt;</a>  
+		    </td>  
+		  	<td>  
+		  	<select multiple id="select2" name="select2[]"></select>  
+		   	<a href="#" id="remove" class="sel">&lt;&lt; remove</a>  
+		  
+		  
+		  	</td>
+		</tr>
+		</table>
 		<table class="adminlist">
 			<tr>
 				<td colspan="2">
@@ -198,28 +221,6 @@ defined('_JEXEC') or die('Restricted access');
 	          <input type="domain" name="domain" disabled />
 		      </td>
 		  </tr>
-		</table>
-
-		<table class="adminlist">
-		<tr>
-			<td colspan="2">
-				<h3><?php echo JText::_( "Add extensions to new site" ); ?></h3> </td>
-		</tr>
-		<tr>
-			<td align="right" width="50%">
-			
-		    <select multiple id="select1" name="select1">  
-				<? echo $this->options; ?>
-		    </select>  
-		    <a href="#" id="add" class="sel">add &gt;&gt;</a>  
-		    </td>  
-		  	<td>  
-		  	<select multiple id="select2" name="select2[]"></select>  
-		   	<a href="#" id="remove" class="sel">&lt;&lt; remove</a>  
-		  
-		  
-		  	</td>
-		</tr>
 		</table>
 	</td>
 </tr>
