@@ -27,10 +27,10 @@ class mtwMultipleModelVirtual extends JModel
 
 	function saveConfig( $post ) {
 
-		require_once('components'.DS.'com_mtwmultiple'.DS.'helpers'.DS.'config.php' );
+		require_once('components/com_mtwmultiple/helpers/config.php' );
 		jimport('joomla.filesystem.file');
 
-    $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+    $configFile = JPATH_COMPONENT.'/mtwmultiple_config.php';
     if (JFile::exists( $configFile )) {
 			include( $configFile );
     }else{
@@ -40,7 +40,7 @@ class mtwMultipleModelVirtual extends JModel
 		$virtual = ConfigHelper::removeSlash( $post['vhostpath'] );
 
     if (!JFolder::exists( JURI::root() . $virtual )) {
-			JFolder::create( JPATH_ROOT .DS. $virtual );
+			JFolder::create( JPATH_ROOT .'/'. $virtual );
     }
 
 		$configText = "<?php\n";
@@ -50,7 +50,7 @@ class mtwMultipleModelVirtual extends JModel
 
 		$return = JFile::write($configFile, $configText);
 
-		$virtualFile = JPATH_COMPONENT.DS.'mtwmultiple.virtualhost.conf';
+		$virtualFile = JPATH_COMPONENT.'/mtwmultiple.virtualhost.conf';
 
 		$vh = $_POST['virtual'];
 		$vh = str_replace("\\", "", $vh);

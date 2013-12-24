@@ -59,8 +59,8 @@ class mtwMultipleModelSites extends JModelList
     $db->setQuery( $query );
     $siteID = $db->loadResult();
 
-    $sitesPath = JPATH_SITE.DS.$params->get( 'path' );
-    $newSitePath = $sitesPath .DS. $siteID;
+    $sitesPath = JPATH_SITE.'/'.$params->get( 'path' );
+    $newSitePath = $sitesPath.'/'.$siteID;
 
     if (!JFolder::exists( $sitesPath )) {              
       JFolder::create( $sitesPath );
@@ -69,119 +69,119 @@ class mtwMultipleModelSites extends JModelList
 		// Create the directory of the installation
     JFolder::create( $newSitePath);
 		// Symlink the title to the installation directory 
-		symlink ( $siteID, $sitesPath.DS.$post['title'] );
+		symlink ( $siteID, $sitesPath.'/'.$post['title'] );
 
     /* index.php */
-    JFile::copy( JPATH_SITE .DS. 'index.php', $newSitePath.DS.'index.php');
+    JFile::copy( JPATH_SITE .'/index.php', $newSitePath.'/index.php');
 
     /* Administrator Files */
-    JFolder::create( $newSitePath.DS.'administrator');
-    JFolder::create( $newSitePath.DS.'administrator/backups');
-    JFile::copy( JPATH_SITE .DS. 'cache/index.html', $newSitePath.DS.'administrator/backups/index.html');
-    JFolder::create( $newSitePath.DS.'administrator/cache');
-    JFile::copy( JPATH_SITE .DS. 'cache/index.html', $newSitePath.DS.'administrator/cache/index.html');
-    JFolder::create( $newSitePath.DS.'administrator/components');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_admin', $newSitePath .DS. 'administrator/components/com_admin');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_banners', $newSitePath .DS. 'administrator/components/com_banners');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_cache', $newSitePath .DS. 'administrator/components/com_cache');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_categories', $newSitePath .DS. 'administrator/components/com_categories');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_checkin', $newSitePath .DS. 'administrator/components/com_checkin');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_config', $newSitePath .DS. 'administrator/components/com_config');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_contact', $newSitePath .DS. 'administrator/components/com_contact');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_content', $newSitePath .DS. 'administrator/components/com_content');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_cpanel', $newSitePath .DS. 'administrator/components/com_cpanel');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_finder', $newSitePath .DS. 'administrator/components/com_finder');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_installer', $newSitePath .DS. 'administrator/components/com_installer');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_languages', $newSitePath .DS. 'administrator/components/com_languages');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_login', $newSitePath .DS. 'administrator/components/com_login');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_media', $newSitePath .DS. 'administrator/components/com_media');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_menus', $newSitePath .DS. 'administrator/components/com_menus');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_messages', $newSitePath .DS. 'administrator/components/com_messages');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_modules', $newSitePath .DS. 'administrator/components/com_modules');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_newsfeeds', $newSitePath .DS. 'administrator/components/com_newsfeeds');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_plugins', $newSitePath .DS. 'administrator/components/com_plugins');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_search', $newSitePath .DS. 'administrator/components/com_search');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_templates', $newSitePath .DS. 'administrator/components/com_templates');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_users', $newSitePath .DS. 'administrator/components/com_users');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'components/com_weblinks', $newSitePath .DS. 'administrator/components/com_weblinks');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'help', $newSitePath .DS. 'administrator/help');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'images', $newSitePath .DS. 'administrator/images');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'includes', $newSitePath .DS. 'administrator/includes');
-    JFile::copy( JPATH_ADMINISTRATOR .DS. 'index.php', $newSitePath.DS.'administrator/index.php');
-    JFolder::copy( JPATH_ADMINISTRATOR .DS. 'language/', $newSitePath.DS.'administrator/language/');
-    //symlink ( JPATH_ADMINISTRATOR .DS. 'language/index.html', $newSitePath .DS. 'administrator/language/index.html');
-    //symlink ( JPATH_ADMINISTRATOR .DS. 'language/en-GB', $newSitePath .DS. 'administrator/language/en-GB');
-    symlink ( JPATH_ADMINISTRATOR .DS. 'modules', $newSitePath .DS. 'administrator/modules');
+    JFolder::create( $newSitePath.'/administrator');
+    JFolder::create( $newSitePath.'/administrator/backups');
+    JFile::copy( JPATH_SITE .'/cache/index.html', $newSitePath.'/administrator/backups/index.html');
+    JFolder::create( $newSitePath.'/administrator/cache');
+    JFile::copy( JPATH_SITE .'/cache/index.html', $newSitePath.'/administrator/cache/index.html');
+    JFolder::create( $newSitePath.'/administrator/components');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_admin', $newSitePath .'/administrator/components/com_admin');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_banners', $newSitePath .'/administrator/components/com_banners');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_cache', $newSitePath .'/administrator/components/com_cache');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_categories', $newSitePath .'/administrator/components/com_categories');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_checkin', $newSitePath .'/administrator/components/com_checkin');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_config', $newSitePath .'/administrator/components/com_config');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_contact', $newSitePath .'/administrator/components/com_contact');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_content', $newSitePath .'/administrator/components/com_content');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_cpanel', $newSitePath .'/administrator/components/com_cpanel');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_finder', $newSitePath .'/administrator/components/com_finder');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_installer', $newSitePath .'/administrator/components/com_installer');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_languages', $newSitePath .'/administrator/components/com_languages');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_login', $newSitePath .'/administrator/components/com_login');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_media', $newSitePath .'/administrator/components/com_media');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_menus', $newSitePath .'/administrator/components/com_menus');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_messages', $newSitePath .'/administrator/components/com_messages');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_modules', $newSitePath .'/administrator/components/com_modules');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_newsfeeds', $newSitePath .'/administrator/components/com_newsfeeds');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_plugins', $newSitePath .'/administrator/components/com_plugins');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_search', $newSitePath .'/administrator/components/com_search');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_templates', $newSitePath .'/administrator/components/com_templates');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_users', $newSitePath .'/administrator/components/com_users');
+    symlink ( JPATH_ADMINISTRATOR .'/components/com_weblinks', $newSitePath .'/administrator/components/com_weblinks');
+    symlink ( JPATH_ADMINISTRATOR .'/help', $newSitePath .'/administrator/help');
+    symlink ( JPATH_ADMINISTRATOR .'/images', $newSitePath .'/administrator/images');
+    symlink ( JPATH_ADMINISTRATOR .'/includes', $newSitePath .'/administrator/includes');
+    JFile::copy( JPATH_ADMINISTRATOR .'/index.php', $newSitePath.'/administrator/index.php');
+    JFolder::copy( JPATH_ADMINISTRATOR .'/language/', $newSitePath.'/administrator/language/');
+    //symlink ( JPATH_ADMINISTRATOR .'/language/index.html', $newSitePath .'/administrator/language/index.html');
+    //symlink ( JPATH_ADMINISTRATOR .'/language/en-GB', $newSitePath .'/administrator/language/en-GB');
+    symlink ( JPATH_ADMINISTRATOR .'/modules', $newSitePath .'/administrator/modules');
     // Admin Templates
-    JFolder::copy( JPATH_ADMINISTRATOR .DS. 'templates/', $newSitePath.DS.'administrator/templates/');
+    JFolder::copy( JPATH_ADMINISTRATOR .'/templates/', $newSitePath.'/administrator/templates/');
 
 
     /* Site Components Files */
-    JFolder::create( $newSitePath.DS.'components');
-    symlink ( JPATH_SITE .DS. 'components/com_banners', $newSitePath .DS. 'components/com_banners');
-    symlink ( JPATH_SITE .DS. 'components/com_contact', $newSitePath .DS. 'components/com_contact');
-    symlink ( JPATH_SITE .DS. 'components/com_content', $newSitePath .DS. 'components/com_content');
-    symlink ( JPATH_SITE .DS. 'components/com_mailto', $newSitePath .DS. 'components/com_mailto');
-    symlink ( JPATH_SITE .DS. 'components/com_media', $newSitePath .DS. 'components/com_media');
-    symlink ( JPATH_SITE .DS. 'components/com_newsfeeds', $newSitePath .DS. 'components/com_newsfeeds');
-    symlink ( JPATH_SITE .DS. 'components/com_poll', $newSitePath .DS. 'components/com_poll');
-    symlink ( JPATH_SITE .DS. 'components/com_search', $newSitePath .DS. 'components/com_search');
-    symlink ( JPATH_SITE .DS. 'components/com_user', $newSitePath .DS. 'components/com_users');
-    symlink ( JPATH_SITE .DS. 'components/com_weblinks', $newSitePath .DS. 'components/com_weblinks');
-    symlink ( JPATH_SITE .DS. 'components/com_wrapper', $newSitePath .DS. 'components/com_wrapper');
+    JFolder::create( $newSitePath.'/components');
+    symlink ( JPATH_SITE .'/components/com_banners', $newSitePath .'/components/com_banners');
+    symlink ( JPATH_SITE .'/components/com_contact', $newSitePath .'/components/com_contact');
+    symlink ( JPATH_SITE .'/components/com_content', $newSitePath .'/components/com_content');
+    symlink ( JPATH_SITE .'/components/com_mailto', $newSitePath .'/components/com_mailto');
+    symlink ( JPATH_SITE .'/components/com_media', $newSitePath .'/components/com_media');
+    symlink ( JPATH_SITE .'/components/com_newsfeeds', $newSitePath .'/components/com_newsfeeds');
+    symlink ( JPATH_SITE .'/components/com_poll', $newSitePath .'/components/com_poll');
+    symlink ( JPATH_SITE .'/components/com_search', $newSitePath .'/components/com_search');
+    symlink ( JPATH_SITE .'/components/com_user', $newSitePath .'/components/com_users');
+    symlink ( JPATH_SITE .'/components/com_weblinks', $newSitePath .'/components/com_weblinks');
+    symlink ( JPATH_SITE .'/components/com_wrapper', $newSitePath .'/components/com_wrapper');
 
-    JFolder::copy( JPATH_SITE .DS. 'images/', $newSitePath.DS.'images');
+    JFolder::copy( JPATH_SITE .'/images/', $newSitePath.'/images');
 
-    symlink ( JPATH_SITE .DS. 'includes', $newSitePath .DS. 'includes');
-    //symlink ( JPATH_SITE .DS. 'installation', $newSitePath .DS. 'installation');
-		JFolder::copy( JPATH_SITE .DS. 'language/', $newSitePath.DS.'language');
-    symlink ( JPATH_SITE .DS. 'libraries', $newSitePath .DS. 'libraries');
+    symlink ( JPATH_SITE .'/includes', $newSitePath .'/includes');
+    //symlink ( JPATH_SITE .'/installation', $newSitePath .'/installation');
+		JFolder::copy( JPATH_SITE .'/language/', $newSitePath.'/language');
+    symlink ( JPATH_SITE .'/libraries', $newSitePath .'/libraries');
 
-    JFolder::copy( JPATH_SITE .DS. 'logs/', $newSitePath.DS.'logs');
-    JFolder::copy( JPATH_SITE .DS. 'media/', $newSitePath.DS.'media');
-    JFolder::create( $newSitePath.DS.'modules');
-    symlink ( JPATH_SITE .DS. 'modules/mod_archive', $newSitePath .DS. 'modules/mod_archive');
-    symlink ( JPATH_SITE .DS. 'modules/mod_banners', $newSitePath .DS. 'modules/mod_banners');
-    symlink ( JPATH_SITE .DS. 'modules/mod_breadcrumbs', $newSitePath .DS. 'modules/mod_breadcrumbs');
-    symlink ( JPATH_SITE .DS. 'modules/mod_custom', $newSitePath .DS. 'modules/mod_custom');
-    symlink ( JPATH_SITE .DS. 'modules/mod_feed', $newSitePath .DS. 'modules/mod_feed');
-    symlink ( JPATH_SITE .DS. 'modules/mod_footer', $newSitePath .DS. 'modules/mod_footer');
-    symlink ( JPATH_SITE .DS. 'modules/mod_latestnews', $newSitePath .DS. 'modules/mod_latestnews');
-    symlink ( JPATH_SITE .DS. 'modules/mod_login', $newSitePath .DS. 'modules/mod_login');
-    symlink ( JPATH_SITE .DS. 'modules/mod_mainmenu', $newSitePath .DS. 'modules/mod_mainmenu');
-    symlink ( JPATH_SITE .DS. 'modules/mod_mostread', $newSitePath .DS. 'modules/mod_mostread');
-    symlink ( JPATH_SITE .DS. 'modules/mod_newsflash', $newSitePath .DS. 'modules/mod_newsflash');
-    symlink ( JPATH_SITE .DS. 'modules/mod_random_image', $newSitePath .DS. 'modules/mod_random_image');
-    symlink ( JPATH_SITE .DS. 'modules/mod_related_items', $newSitePath .DS. 'modules/mod_related_items');
-    symlink ( JPATH_SITE .DS. 'modules/mod_search', $newSitePath .DS. 'modules/mod_search');
-    symlink ( JPATH_SITE .DS. 'modules/mod_sections', $newSitePath .DS. 'modules/mod_sections');
-    symlink ( JPATH_SITE .DS. 'modules/mod_stats', $newSitePath .DS. 'modules/mod_stats');
-    symlink ( JPATH_SITE .DS. 'modules/mod_syndicate', $newSitePath .DS. 'modules/mod_syndicate');
-    symlink ( JPATH_SITE .DS. 'modules/mod_whosonline', $newSitePath .DS. 'modules/mod_whosonline');
-    symlink ( JPATH_SITE .DS. 'modules/mod_wrapper', $newSitePath .DS. 'modules/mod_wrapper');
+    JFolder::copy( JPATH_SITE .'/logs/', $newSitePath.'/logs');
+    JFolder::copy( JPATH_SITE .'/media/', $newSitePath.'/media');
+    JFolder::create( $newSitePath.'/modules');
+    symlink ( JPATH_SITE .'/modules/mod_archive', $newSitePath .'/modules/mod_archive');
+    symlink ( JPATH_SITE .'/modules/mod_banners', $newSitePath .'/modules/mod_banners');
+    symlink ( JPATH_SITE .'/modules/mod_breadcrumbs', $newSitePath .'/modules/mod_breadcrumbs');
+    symlink ( JPATH_SITE .'/modules/mod_custom', $newSitePath .'/modules/mod_custom');
+    symlink ( JPATH_SITE .'/modules/mod_feed', $newSitePath .'/modules/mod_feed');
+    symlink ( JPATH_SITE .'/modules/mod_footer', $newSitePath .'/modules/mod_footer');
+    symlink ( JPATH_SITE .'/modules/mod_latestnews', $newSitePath .'/modules/mod_latestnews');
+    symlink ( JPATH_SITE .'/modules/mod_login', $newSitePath .'/modules/mod_login');
+    symlink ( JPATH_SITE .'/modules/mod_mainmenu', $newSitePath .'/modules/mod_mainmenu');
+    symlink ( JPATH_SITE .'/modules/mod_mostread', $newSitePath .'/modules/mod_mostread');
+    symlink ( JPATH_SITE .'/modules/mod_newsflash', $newSitePath .'/modules/mod_newsflash');
+    symlink ( JPATH_SITE .'/modules/mod_random_image', $newSitePath .'/modules/mod_random_image');
+    symlink ( JPATH_SITE .'/modules/mod_related_items', $newSitePath .'/modules/mod_related_items');
+    symlink ( JPATH_SITE .'/modules/mod_search', $newSitePath .'/modules/mod_search');
+    symlink ( JPATH_SITE .'/modules/mod_sections', $newSitePath .'/modules/mod_sections');
+    symlink ( JPATH_SITE .'/modules/mod_stats', $newSitePath .'/modules/mod_stats');
+    symlink ( JPATH_SITE .'/modules/mod_syndicate', $newSitePath .'/modules/mod_syndicate');
+    symlink ( JPATH_SITE .'/modules/mod_whosonline', $newSitePath .'/modules/mod_whosonline');
+    symlink ( JPATH_SITE .'/modules/mod_wrapper', $newSitePath .'/modules/mod_wrapper');
 
     /* Plugins */
-    JFolder::copy( JPATH_SITE .DS. 'plugins/', $newSitePath.DS.'plugins');
+    JFolder::copy( JPATH_SITE .'/plugins/', $newSitePath.'/plugins');
     // Install mtwFirstInstall plugin
-    $pluginPHP = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'plugin'.DS.'mtwFirstInstall.php';
-    $pluginXML = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'plugin'.DS.'mtwFirstInstall.xml';
-    JFile::copy( $pluginPHP, $newSitePath.DS.'plugins'.DS.'system'.DS.'mtwFirstInstall.php');
-    JFile::copy( $pluginXML, $newSitePath.DS.'plugins'.DS.'system'.DS.'mtwFirstInstall.xml');
+    $pluginPHP = JPATH_ADMINISTRATOR .'/components'.'/com_mtwmultiple'.'/plugin'.'/mtwFirstInstall.php';
+    $pluginXML = JPATH_ADMINISTRATOR .'/components'.'/com_mtwmultiple'.'/plugin'.'/mtwFirstInstall.xml';
+    JFile::copy( $pluginPHP, $newSitePath.'/plugins'.'/system'.'/mtwFirstInstall.php');
+    JFile::copy( $pluginXML, $newSitePath.'/plugins'.'/system'.'/mtwFirstInstall.xml');
 
     /* FIX!! Templates */
-		JFolder::copy( JPATH_SITE .DS. 'templates/', $newSitePath.DS.'templates');
+		JFolder::copy( JPATH_SITE .'/templates/', $newSitePath.'/templates');
 		/*
-    JFolder::create( $newSitePath.DS.'templates');
-    //symlink ( JPATH_SITE .DS. 'templates', $newSitePath .DS. 'templates');
-    symlink ( JPATH_SITE .DS. 'templates'.DS.'beez', $newSitePath .DS. 'templates'.DS.'beez');
-    symlink ( JPATH_SITE .DS. 'templates'.DS.'ja_purity', $newSitePath .DS. 'templates'.DS.'ja_purity');
-    symlink ( JPATH_SITE .DS. 'templates'.DS.'rhuk_milkyway', $newSitePath .DS. 'templates'.DS.'rhuk_milkyway');
-    symlink ( JPATH_SITE .DS. 'templates'.DS.'system', $newSitePath .DS. 'templates'.DS.'system');
+    JFolder::create( $newSitePath.'/templates');
+    //symlink ( JPATH_SITE .'/templates', $newSitePath .'/templates');
+    symlink ( JPATH_SITE .'/templates'.'/beez', $newSitePath .'/templates'.'/beez');
+    symlink ( JPATH_SITE .'/templates'.'/ja_purity', $newSitePath .'/templates'.'/ja_purity');
+    symlink ( JPATH_SITE .'/templates'.'/rhuk_milkyway', $newSitePath .'/templates'.'/rhuk_milkyway');
+    symlink ( JPATH_SITE .'/templates'.'/system', $newSitePath .'/templates'.'/system');
 		*/
 
-    JFolder::create( $newSitePath.DS.'tmp');
+    JFolder::create( $newSitePath.'/tmp');
 
-    symlink ( JPATH_SITE .DS. 'xmlrpc', $newSitePath .DS. 'xmlrpc');
+    symlink ( JPATH_SITE .'/xmlrpc', $newSitePath .'/xmlrpc');
 
 
     return true;
@@ -194,7 +194,7 @@ class mtwMultipleModelSites extends JModelList
 
     $db =& JFactory::getDBO();
     $config =& JFactory::getConfig();
-    require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
+    require_once( JPATH_ADMINISTRATOR.'/components'.'/com_mtwmultiple'.'/include'.'/helper.php');
 
     $dbtype = $config->getValue('config.dbtype');
     $host = $post['c_hostname'];
@@ -206,13 +206,13 @@ class mtwMultipleModelSites extends JModelList
     $newDB = & JInstallationHelper::getDBO($dbtype, $host, $user, $password, $dbname, $dbprefix);
 
 		// Install original Joomla scheme
-    $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'joomla.sql';
+    $dbscheme = JPATH_ADMINISTRATOR.'/components'.'/com_mtwmultiple'.'/sql'.'/joomla.sql';
     if (JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
     	return false;
     }
 
 		// First Install Plugin table
-    $dbscheme = JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'sql'.DS.'firstinstall.sql';
+    $dbscheme = JPATH_ADMINISTRATOR.'/components'.'/com_mtwmultiple'.'/sql'.'/firstinstall.sql';
     if (JInstallationHelper::populateDatabase($newDB, $dbscheme, $errors) > 0 ) {
     	return false;
     }
@@ -246,8 +246,8 @@ class mtwMultipleModelSites extends JModelList
     $siteID = $db->loadResult();
 
     /* Create Joomla Installation */
-    $sitesPath = JPATH_SITE.DS.$params->get( 'path' );
-    $newSitePath = $sitesPath .DS. $siteID;
+    $sitesPath = JPATH_SITE.'/'.$params->get( 'path' );
+    $newSitePath = $sitesPath.'/'.$siteID;
 
 		$newConfig = new JRegistry('config');
 		$config_array = array();
@@ -275,8 +275,8 @@ class mtwMultipleModelSites extends JModelList
 		$config_array['gzip']				= JRequest::getVar('gzip', 0, 'post', 'int');
 		$config_array['error_reporting']	= JRequest::getVar('error_reporting', -1, 'post', 'int');
 		$config_array['xmlrpc_server']		= JRequest::getVar('xmlrpc_server', 0, 'post', 'int');
-		$config_array['log_path']			= JRequest::getVar('log_path', $newSitePath.DS.'logs', 'post', 'string');
-		$config_array['tmp_path']			= JRequest::getVar('tmp_path', $newSitePath.DS.'tmp', 'post', 'string');
+		$config_array['log_path']			= JRequest::getVar('log_path', $newSitePath.'/logs', 'post', 'string');
+		$config_array['tmp_path']			= JRequest::getVar('tmp_path', $newSitePath.'/tmp', 'post', 'string');
 		$config_array['live_site'] 			= rtrim(JRequest::getVar('live_site','','post','string'), '/\\');
 
 		// LOCALE SETTINGS
@@ -356,7 +356,7 @@ class mtwMultipleModelSites extends JModelList
 		}
 
 		// Get the path of the configuration file
-		$fname = $newSitePath.DS.'configuration.php';
+		$fname = $newSitePath.'/configuration.php';
 
 		// Get the config registry in PHP class format and write it to configuation.php
 		jimport('joomla.filesystem.file');
@@ -402,8 +402,8 @@ class mtwMultipleModelSites extends JModelList
 		*/    
 
 		// Setting new site path
-    $sitesPath = JPATH_SITE.DS.$params->get( 'path' );
-    $newSitePath = $sitesPath .DS. $siteID;
+    $sitesPath = JPATH_SITE.'/'.$params->get( 'path' );
+    $newSitePath = $sitesPath.'/'.$siteID;
 
 		if (isset($data['select2'])) {
 			foreach ($data['select2'] as $id) {
@@ -426,8 +426,8 @@ class mtwMultipleModelSites extends JModelList
 					echo $newDB->getError();
 				}
 
-		    $filepath = JPATH_ADMINISTRATOR .DS. 'components'.DS.'com_mtwmultiple'.DS.'extensions'.DS.$rows['filename'];
-		    JFile::copy( $filepath, $newSitePath.DS.'tmp'.DS.$rows['filename']);
+		    $filepath = JPATH_ADMINISTRATOR .'/components'.'/com_mtwmultiple'.'/extensions'.'/'.$rows['filename'];
+		    JFile::copy( $filepath, $newSitePath.'/tmp'.'/'.$rows['filename']);
 			}	
 		}
 
@@ -444,15 +444,15 @@ class mtwMultipleModelSites extends JModelList
     $db->setQuery( $query );
     $siteID = $db->loadResult();
 		
-		$path = JPATH_ROOT.DS.$params->get( 'path' ).DS.$siteID;
+		$path = JPATH_ROOT.'/'.$params->get( 'path' ).'/'.$siteID;
 
-		$vh = JFile::read(JPATH_ADMINISTRATOR .DS.'components'.DS.'com_mtwmultiple'.DS.'mtwmultiple.virtualhost.conf');
+		$vh = JFile::read(JPATH_ADMINISTRATOR .'/components/com_mtwmultiple/mtwmultiple.virtualhost.conf');
 		
 		$vh = str_replace("{EMAIL}", $data['email'], $vh);
 		$vh = str_replace("{DOCROOT}", $path, $vh);
 		$vh = str_replace("{SERVER}", $data['domain'], $vh);
 
-		$vhfile = JPATH_ROOT.DS.$params->get( 'virtual' ).DS."{$siteID}-{$data['domain']}";
+		$vhfile = JPATH_ROOT.'/'.$params->get( 'virtual' ).'/'."{$siteID}-{$data['domain']}";
 
 		//echo $vhfile."<br>";
 
@@ -468,7 +468,7 @@ class mtwMultipleModelSites extends JModelList
 		$db =& JFactory::getDBO();
 		$config =& JFactory::getConfig();
 		$dbname = $config->getValue('config.db');
-		require_once( JPATH_ADMINISTRATOR.DS.'components'.DS.'com_mtwmultiple'.DS.'include'.DS.'helper.php');
+		require_once( JPATH_ADMINISTRATOR.'/components/com_mtwmultiple/include/helper.php');
 
 		$dbprefix = 'j' . $siteID . '_';
 		$query = "SHOW TABLES LIKE '$dbprefix%'";
@@ -493,12 +493,12 @@ class mtwMultipleModelSites extends JModelList
 		$site = $this->getSite($id);
 
  		$params = &JComponentHelper::getParams( 'com_mtwmultiple' );
-		$sitesPath = JPATH_SITE.DS.$params->get( 'path' );
+		$sitesPath = JPATH_SITE.'/'.$params->get( 'path' );
 
 		// Remove the directory
-		JFolder::delete($sitesPath .DS. $id);
+		JFolder::delete($sitesPath.'/'.$id);
 		// Remove the symlink
-		JFile::delete($sitesPath .DS. $site->title);
+		JFile::delete($sitesPath.'/'.$site->title);
 
 		return true;
 	}

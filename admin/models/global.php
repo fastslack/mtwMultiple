@@ -26,10 +26,10 @@ class mtwMultipleModelGlobal extends JModel
 
 	function saveConfig( $post ) {
 
-		require_once('components/com_mtwmultiple'.DS.'helpers'.DS.'config.php' );
+		require_once('components/com_mtwmultiple/helpers/config.php' );
 		jimport('joomla.filesystem.file');
 
-        $configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+        $configFile = JPATH_COMPONENT.'/mtwmultiple_config.php';
         if (JFile::exists( $configFile )) {
 			require_once( $configFile );
         }else{

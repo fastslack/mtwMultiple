@@ -74,8 +74,8 @@ JHTML::_('behavior.tooltip');
 		$row = &$rows[$i];
 
 		$checked		= JHTML::_('grid.checkedout',   $row, $i );
-		$url_site = JURI::root() . $this->params->get('path') .DS. $row->id;
-		$url_admin = JURI::root() . $this->params->get('path') .DS. $row->id .DS. 'administrator';
+		$url_site = JURI::root() . $this->params->get('path') .'/'. $row->id;
+		$url_admin = JURI::root() . $this->params->get('path') .'/'. $row->id . '/administrator';
 	?>
 	<tr class="<?php echo "row$k"; ?>">
 		<td align="center">

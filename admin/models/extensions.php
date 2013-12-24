@@ -34,7 +34,7 @@ class mtwMultipleModelExtensions extends JModel
 		
 		$mainframe = JFactory::getApplication();
 
-		require_once('components/com_mtwmultiple'.DS.'helpers'.DS.'upload.php' );		
+		require_once('components/com_mtwmultiple/helpers/upload.php' );		
 
 		// Check for request forgeries
 		//JRequest::checkToken( 'request' ) or jexit( 'Invalid Token' );
@@ -55,7 +55,7 @@ class mtwMultipleModelExtensions extends JModel
 		$file['name']	= JFile::makeSafe($file['name']);
 
 		if (isset($file['name'])) {
-			$filepath = JPath::clean('components/com_mtwmultiple/extensions'.DS.strtolower($file['name']));
+			$filepath = JPath::clean('components/com_mtwmultiple/extensions/'.strtolower($file['name']));
 
 			if (!UploadHelper::canUpload( $file, $err )) {
 				if ($format == 'json') {
@@ -142,7 +142,7 @@ class mtwMultipleModelExtensions extends JModel
 		$package = JInstallerHelper::unpack($filepath);
 		//print_r($package);
 
-		$files = JFolder::files(JPATH_ADMINISTRATOR.DS.$package['dir'], '\.xml$', 1, true);
+		$files = JFolder::files(JPATH_ADMINISTRATOR.'/'.$package['dir'], '\.xml$', 1, true);
 		//print_r($files);
 
 		$db =& JFactory::getDBO();
@@ -183,7 +183,7 @@ class mtwMultipleModelExtensions extends JModel
 		}
 
 		jimport('joomla.filesystem.file');
-		JFolder::delete(JPATH_ADMINISTRATOR.DS.$package['extractdir']);
+		JFolder::delete(JPATH_ADMINISTRATOR.'/'.$package['extractdir']);
 	}	
 }
 ?>

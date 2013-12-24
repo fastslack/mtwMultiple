@@ -52,7 +52,7 @@ class plgSystemmtwFirstInstall extends JPlugin
 			$rows = $db->loadObjectList();
 
 			foreach ($rows as $p) {
-				$filepath = JPATH_SITE.DS."tmp".DS.$p->filename;
+				$filepath = JPATH_SITE.'/tmp/'.$p->filename;
 				//print_r($rows);echo "<br>";
 				$package = JInstallerHelper::unpack($filepath);
 				//echo $package;

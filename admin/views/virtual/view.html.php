@@ -30,7 +30,7 @@ class mtwMultipleViewVirtual extends JView
 
 		jimport('joomla.filesystem.file');
 
-        $configFile = JPATH_COMPONENT.DS.'mtwmultiple.virtualhost.conf';
+        $configFile = JPATH_COMPONENT.'/mtwmultiple.virtualhost.conf';
 
         if (!JFile::exists( $configFile )) {
 			JFile::copy( $configFile . '.orig', $configFile );
@@ -38,7 +38,7 @@ class mtwMultipleViewVirtual extends JView
 
 		$virtual = JFile::read($configFile);
 
-		$configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+		$configFile = JPATH_COMPONENT.'/mtwmultiple_config.php';
 		if (JFile::exists( $configFile )) {
 			include( $configFile );
 		}

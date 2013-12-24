@@ -10,7 +10,7 @@
 
 jimport('joomla.application.component.controller');
 
-class mtwMultipleController extends JController {
+class mtwMultipleController extends JControllerLegacy {
 
 	/**
 	 * constructor (registers additional tasks to methods)
@@ -18,8 +18,6 @@ class mtwMultipleController extends JController {
 	 */
 
 	function display() {
-		
 		parent::display();
 	}
 }
-?>

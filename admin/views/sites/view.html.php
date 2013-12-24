@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
 jimport( 'joomla.application.component.view' );
 jimport('joomla.filesystem.file');
 
-class mtwMultipleViewSites extends JView {
+class mtwMultipleViewSites extends JViewLegacy {
 
 	function display($tpl = null) {
 
@@ -131,7 +131,7 @@ class mtwMultipleViewSites extends JView {
 		include_once JPATH_ROOT . "/libraries/joomla/html/html/select.php";
 		$options = JHTMLSelect::Options( $rows, "id", "name" );
 
-		$tblSites = new TableSites(&$db);
+		$tblSites = new TableSites($db);
 
 	  $c_db = new JObject;
 	  $c_db->set('c_hostname', $mainframe->getCfg('host'));

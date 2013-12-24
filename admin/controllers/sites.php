@@ -20,8 +20,8 @@ class mtwMultipleControllerSites extends mtwMultipleController
 	{
 		parent::__construct();
 
-		require_once(JPATH_COMPONENT.DS.'tables'.DS.'sites.php');	
-		require_once(JPATH_COMPONENT.DS.'tables'.DS.'extensions.php');
+		require_once(JPATH_COMPONENT.'/tables/sites.php');	
+		require_once(JPATH_COMPONENT.'/tables/extensions.php');
 	}
 
   function display() {  

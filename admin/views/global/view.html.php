@@ -28,7 +28,7 @@ class mtwMultipleViewGlobal extends JView
 		JToolBarHelper::cancel();
 		JToolBarHelper::spacer();
 
-		$configFile = JPATH_COMPONENT.DS.'mtwmultiple_config.php';
+		$configFile = JPATH_COMPONENT.'/mtwmultiple_config.php';
 		if (JFile::exists( $configFile )) {
 			include( $configFile );
 		}
